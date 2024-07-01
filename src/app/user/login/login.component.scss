@@ -6,3 +6,9 @@
   .custom-button:hover {
     background-color: #05243b; /* Color más oscuro para el estado hover */
   }
+
+  .card-logo {
+    max-width: 100%; /* Asegura que el logo no se salga del tamaño del contenedor */
+    height: auto; /* Ajusta la altura automáticamente según el ancho */
+  }
+  
