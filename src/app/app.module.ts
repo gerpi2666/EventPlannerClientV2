@@ -19,11 +19,13 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ComponentsModule } from './components/components.module';
 import { UserModule } from './user/user.module';
 import { ServicesModule } from './services/services.module';
+import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FullComponent
+    FullComponent,
+
   ],
   imports: [
     BrowserModule,

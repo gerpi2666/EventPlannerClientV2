@@ -7,37 +7,32 @@ import { Observable } from 'rxjs';
 })
 export class GenericService {
 
-  // URL del API, definida en enviroments->enviroment.ts
-  urlAPI: string ='https://localhost:44393/User';
-  //Información usuario actual
-  currentUser: any;
+  // URL del API, definida en environments/environment.ts
+  urlAPI: string = 'https://localhost:44393/User';
 
-  //Inyectar cliente HTTP para las solicitudes al API
-  constructor(private http: HttpClient) {
-   
+  constructor(private http: HttpClient) {}
+
+  // Método para resetear la contraseña
+  resetPassword(email: string, newPassword: string): Observable<any> {
+    const body = { email, newPassword };
+    return this.http.post<any>(`${this.urlAPI}/reset-password`, body);
   }
- 
-  // Listar
+
+  // Resto de métodos CRUD (Listar, Obtener, Crear, Actualizar)...
+
   list(endopoint: string): Observable<any> {
-    return this.http.get<any>(this.urlAPI + endopoint);
+    return this.http.get<any>(`${this.urlAPI}${endopoint}`);
   }
-  // Obtener
+
   get(endopoint: string, filtro: any): Observable<any | any[]> {
-    console.log('RUTA ANTES DEL GET',this.urlAPI+''+endopoint+'/'+filtro)
-
-    return this.http.get<any | any[]>(this.urlAPI + endopoint + `/${filtro}`);
+    return this.http.get<any | any[]>(`${this.urlAPI}${endopoint}/${filtro}`);
   }
-  // crear
+
   create(endopoint: string, objCreate: any | any): Observable<any | any[]> {
-    console.log('Ruta antes de la llamada' , this.urlAPI)
-    return this.http.post<any | any[]>(this.urlAPI + endopoint, objCreate);
-  }
-  // actualizar
-  update(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
-    return this.http.put<any | any[]>(
-      this.urlAPI + endopoint + `/${objUpdate.id}`,
-      objUpdate
-    );
+    return this.http.post<any | any[]>(`${this.urlAPI}${endopoint}`, objCreate);
   }
 
+  update(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
+    return this.http.post<any | any[]>(`${this.urlAPI}${endopoint}/${objUpdate.id}`, objUpdate);
+  }
 }

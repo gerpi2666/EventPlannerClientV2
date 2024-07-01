@@ -10,9 +10,9 @@
               </h2>
             </div>
             
-            <form [formGroup]="formulario" (ngSubmit)="submitForm()">
+            <form [formGroup]="formulario" (ngSubmit)="submitForm()" class="custom-form">
               <mat-form-field class="full-width mb-4">
-                <mat-label>Correo</mat-label>
+                <mat-label>Correo electrónico</mat-label>
                 <input matInput formControlName="email" placeholder="ejemplo@gmail.com" required>
                 <mat-error *ngIf="errorHandling('email', 'required')">
                   Correo es <strong>requerido</strong>
@@ -29,9 +29,9 @@
                 </mat-error>
               </mat-form-field>
               <div class="d-flex justify-content-between mb-3">
-                <a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+                <a  href="/reset-password" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
               </div>
-              <button mat-raised-button class="custom-button w-100" type="submit">
+              <button mat-raised-button class="custom-button w-100 mb-3" type="submit">
                 Iniciar Sesión
               </button>
             </form>

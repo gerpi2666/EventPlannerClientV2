@@ -1,14 +1,59 @@
-.custom-button {
-    background-color: #0b488c;
-    color: white; /* Asegúrate de que el texto sea visible */
-  }
-  
-  .custom-button:hover {
-    background-color: #05243b; /* Color más oscuro para el estado hover */
-  }
+.custom-form {
+  font-family: 'Arial', sans-serif; /* Establece la fuente de texto */
+  font-size: 16px; /* Tamaño de fuente base */
+  line-height: 1.5; /* Altura de línea para mejor legibilidad */
+}
 
-  .card-logo {
-    max-width: 100%; /* Asegura que el logo no se salga del tamaño del contenedor */
-    height: auto; /* Ajusta la altura automáticamente según el ancho */
-  }
-  
+.custom-form .card-logo {
+  max-width: 100%; /* Asegura que el logo no se salga del tamaño del contenedor */
+  height: auto; /* Ajusta la altura automáticamente según el ancho */
+}
+
+.custom-form .mat-label {
+  font-weight: bold; /* Texto de etiqueta en negrita */
+  color: #333; /* Color de texto para etiquetas */
+}
+
+.custom-form .mat-form-field {
+  width: 100%; /* Ancho completo para campos de formulario */
+}
+
+.custom-form .mat-input-element {
+  font-family: 'Arial', sans-serif; /* Establece la fuente de texto para los campos de entrada */
+  font-size: 16px; /* Tamaño de fuente para los campos de entrada */
+}
+
+.custom-form .mat-error {
+  font-size: 14px; /* Tamaño de fuente para mensajes de error */
+  color: #d32f2f; /* Color de texto para mensajes de error */
+  margin-top: 4px; /* Espaciado superior para separar los mensajes de error */
+}
+
+.custom-form .text-decoration-none {
+  color: #0b488c; /* Color de texto para enlace */
+  text-decoration: none; /* Elimina subrayado del enlace */
+}
+
+.custom-form .text-decoration-none:hover {
+  text-decoration: underline; /* Subrayado al pasar el cursor sobre el enlace */
+}
+
+.custom-button {
+  background-color: #0b488c; /* Color de fondo para botón */
+  color: white; /* Color de texto para botón */
+  border: none; /* Elimina el borde del botón */
+  padding: 12px 20px; /* Ajuste de relleno para el botón */
+  font-size: 16px; /* Tamaño de fuente para el botón */
+  cursor: pointer; /* Cambia el cursor a mano al pasar sobre el botón */
+  transition: background-color 0.3s ease; /* Transición suave para el color de fondo */
+}
+
+.custom-button:hover {
+  background-color: #05243b; /* Color más oscuro al pasar el cursor */
+}
+
+.card-logo {
+  max-width: 100%; /* Asegura que el logo no se salga del tamaño del contenedor */
+  height: auto; /* Ajusta la altura automáticamente según el ancho */
+  max-height: 100px; /* Establece el tamaño máximo del logo */
+}
