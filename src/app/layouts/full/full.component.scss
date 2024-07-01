@@ -15,3 +15,20 @@
   top: 0;
   z-index: 1;
 }
+
+
+.menu-container {
+  width: 100%; /* Ajusta el ancho del contenedor del menú al 100% */
+  padding: 16px; /* Ajusta el relleno según sea necesario */
+
+  .menu-logo {
+    width: 100%; /* La imagen ocupa el 100% del ancho del contenedor */
+    max-width: 100%; /* Ajusta el ancho máximo de la imagen según sea necesario */
+    height: auto; /* La altura se ajusta automáticamente */
+    margin-right: 16px; /* Espacio opcional entre la imagen y el texto */
+  }
+
+  .fs-26 {
+    /* Estilos adicionales para el texto Flexy si es necesario */
+  }
+}

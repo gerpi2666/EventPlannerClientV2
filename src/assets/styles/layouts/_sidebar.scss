@@ -12,18 +12,24 @@
     align-items: center;
   }
 
+  $mi-color-personalizado: #eaa159;
+  
   .sidebar-menu {
     padding: 14px 16px;
     border-radius: 9px;
+    
 
     &.activelink {
-      background-color: $info !important;
+      background-color:  $mi-color-personalizado ;
       color: $white !important;
     }
   }
 
+
+
   .buy-flexy {
-    background-color: $light-primary;
+   // background-color: $light-primary;
+   background-color:  $mi-color-personalizado;
     border-radius: 10px;
   }
 

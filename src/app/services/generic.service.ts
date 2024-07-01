@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class GenericService {
 
   // URL del API, definida en enviroments->enviroment.ts
-  urlAPI: string ='https://localhost:7199/User';
+  urlAPI: string ='https://localhost:44393/User';
   //Información usuario actual
   currentUser: any;
 
@@ -29,6 +29,7 @@ export class GenericService {
   }
   // crear
   create(endopoint: string, objCreate: any | any): Observable<any | any[]> {
+    console.log('Ruta antes de la llamada' , this.urlAPI)
     return this.http.post<any | any[]>(this.urlAPI + endopoint, objCreate);
   }
   // actualizar

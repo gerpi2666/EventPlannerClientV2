@@ -3,12 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FeatherModule } from 'angular-feather';
 import { allIcons } from 'angular-feather/icons';
 import { FormsModule } from '@angular/forms'
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FullComponent } from './layouts/full/full.component';
 import { DemoFlexyModule } from './demo-flexy-module'
+import { HttpClientModule } from '@angular/common/http'; // Importa HttpClientModule
+
+
 
 // Modules
 import { DashboardModule } from './dashboard/dashboard.module';
@@ -23,9 +27,12 @@ import { ServicesModule } from './services/services.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FeatherModule.pick(allIcons),
+    ToastrModule.forRoot(), 
+ 
 
     ServicesModule,
     UserModule,

@@ -1,0 +1,43 @@
+<section class="bg-light d-flex align-items-center min-vh-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow-lg">
+          <div class="card-body">
+            <div class="text-center mb-4">
+              <h2 class="h1"><img src="../../../assets/logo.png" alt=""></h2>
+            </div>
+            <h1 class="h4 font-weight-medium text-dark text-center mb-4">
+              Iniciar sesión
+            </h1>
+            <form [formGroup]="formulario" (ngSubmit)="submitForm()">
+              <mat-form-field class="full-width">
+                <mat-label>Correo</mat-label>
+                <input matInput formControlName="email" placeholder="ejemplo@gmail.com" required>
+                <mat-error *ngIf="errorHandling('email', 'required')">
+                  Correo es <strong>requerido</strong>
+                </mat-error>
+                <mat-error *ngIf="errorHandling('email', 'email')">
+                  El correo <strong>debe tener un formato adecuado</strong>
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <mat-label>Contraseña</mat-label>
+                <input matInput type="password" formControlName="password" required>
+                <mat-error *ngIf="errorHandling('password', 'required')">
+                  Contraseña es <strong>requerida</strong>
+                </mat-error>
+              </mat-form-field>
+              <div class="d-flex justify-content-between mb-3">
+                <a href="#" class="text-decoration-none">¿Olvidaste tu contraseña?</a>
+              </div>
+              <button mat-raised-button class="custom-button w-100" type="submit">
+                Iniciar Sesión
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
