@@ -51,12 +51,25 @@ export class ResetPasswordComponent implements OnInit {
       .resetPassword(email, newPassword)
       .subscribe({
         next: (response) => {
-          this.noti.mensaje(
-            'Éxito',
-            'Contraseña restablecida correctamente',
-            TipoMessage.success
-          );
-          this.router.navigate(['/login']);
+          console.log('responseAPI',response)
+          if(response.statusCode==200){
+            this.noti.mensaje(
+              'Éxito',
+              'Contraseña restablecida correctamente',
+              TipoMessage.success
+            );
+            this.router.navigate(['/login']);
+          }
+          
+          if(response.statusCode==400){
+            this.noti.mensaje(
+              'Error',
+              'Correo electronico invalido',
+              TipoMessage.warning
+            );
+           return
+          }
+        
         },
         error: (error) => {
           console.log(error);
