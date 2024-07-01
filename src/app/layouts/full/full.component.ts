@@ -45,6 +45,11 @@ export class FullComponent {
       menu: "Reset Password",
     },
     {
+      link: "/users",
+      icon: "users",
+      menu: "Usuarios",
+    },
+    {
       link: "/button",
       icon: "disc",
       menu: "Buttons",
