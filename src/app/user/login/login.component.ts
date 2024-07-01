@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
     public fb: FormBuilder,
     private gService: GenericService,
     private router: Router,
-    private route: ActivatedRoute,
-    private noti: NotificacionService
+    private route: ActivatedRoute,    private noti: NotificacionService
+
   ) {
     this.reactiveForm();
   }

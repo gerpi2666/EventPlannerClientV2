@@ -40,6 +40,11 @@ export class FullComponent {
       menu: "Login",
     },
     {
+      link: "/users",
+      icon: "users",
+      menu: "Usuarios",
+    },
+    {
       link: "/button",
       icon: "disc",
       menu: "Buttons",

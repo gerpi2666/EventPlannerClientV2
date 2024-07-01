@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { GenericService } from 'src/app/services/generic.service';
+import {
+  NotificacionService,
+  TipoMessage,
+} from 'src/app/services/notification.service';
 
 export interface PeriodicElement {
   id: number;
@@ -11,12 +15,6 @@ export interface PeriodicElement {
   budget: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
-  { id: 1, name: 'Deep Javiya', work: 'Frontend Devloper', project: 'Flexy Angular', priority: 'Low', badge: 'badge-info', budget: '$3.9k' },
-  { id: 2, name: 'Nirav Joshi', work: 'Project Manager', project: 'Hosting Press HTML', priority: 'Medium', badge: 'badge-primary', budget: '$24.5k' },
-  { id: 3, name: 'Sunil Joshi', work: 'Web Designer', project: 'Elite Admin', priority: 'High', badge: 'badge-danger', budget: '$12.8k' },
-  { id: 4, name: 'Maruti Makwana', work: 'Backend Devloper', project: 'Material Pro', priority: 'Critical', badge: 'badge-success', budget: '$2.4k' },
-];
 
 @Component({
   selector: 'app-index-user',
@@ -25,16 +23,44 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class IndexUserComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'assigned', 'name', 'priority', 'budget'];
-  dataSource = ELEMENT_DATA;
+  DatoAllUser:any
+  displayedColumns: string[] = ['id', 'Nombre', 'Correo', 'Fecha vencimiento', 'Acciones'];
+  dataSource : any;
 
   constructor(
-    private gService: GenericService
+    private gService: GenericService,
+    private noti: NotificacionService
    
   ) {
+    this.CallUser()
   }
 
+  CallUser(){
+
+    this.gService
+    .list('/getAll')
+    .subscribe({
+      next: (call) => {
+        
+        this.DatoAllUser= call.data
+        console.log('DATOS LIST callback',this.DatoAllUser)
+        this.dataSource= this.DatoAllUser
+      },
+      error: () => {
+        this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
+      },
+    });
+
+  }
   
+  updateUser(id:number){
+
+  }
+
+  deleteUser(id:number){
+    
+  }
+
   ngOnInit(): void {
   }
 
