@@ -9,9 +9,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class GenericService {
 
   // URL del API, definida en environments/environment.ts
-  urlAPI: string = 'https://localhost:44393/User';
+  urlAPI: string = 'https://localhost:7199/User';
 
-  private apiUrl = 'https://localhost:44393/Event'; // Cambia esto por tu URL real
+  private apiUrl = 'https://localhost:7199/Event'; // Cambia esto por tu URL real
 
   constructor(private http: HttpClient) {}
 
@@ -24,14 +24,10 @@ export class GenericService {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
   }
 
-  addEvent(descripcion: string, fecha: Date, cupo: number, imagen: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('descripcion', descripcion);
-    formData.append('fecha', fecha.toISOString());
-    formData.append('cupo', cupo.toString());
-    formData.append('imagen', imagen);
-
-    return this.http.post<any>(this.apiUrl, formData);
+  addEvent(objCreate: any | any): Observable<any> {
+    
+    return this.http.post<any | any[]>(`${this.apiUrl}/create-event`, objCreate);
+   
   }
 
   updateEvent(id: number, event: any): Observable<any> {

@@ -12,7 +12,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class EventAddComponent implements OnInit {
   eventForm: FormGroup;
-
+  previewImage:any
   constructor(
     private fb: FormBuilder,
     private eventService: GenericService,
@@ -29,18 +29,36 @@ export class EventAddComponent implements OnInit {
       descripcion: ['', Validators.required],
       fecha: ['', Validators.required],
       cupo: [0, Validators.required],
-      imagen: [null] // No es necesario un validator para un campo de tipo file
+      imagen:  ['', Validators.required] // No es necesario un validator para un campo de tipo file
     });
   }
 
+  handleFileInput(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImage = e.target.result;
+        this.previewImage= this.previewImage.replace('data:image/png;base64,', '');
+        this.eventForm.patchValue({
+          imagen: this.previewImage
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  
+
+
   addEvent(): void {
     if (this.eventForm.valid) {
+      console.log('Dta form', this.eventForm.value)
       const { descripcion, fecha, cupo, imagen } = this.eventForm.value;
 
-      this.eventService.addEvent(descripcion, fecha, cupo, imagen).subscribe({
+      this.eventService.addEvent(this.eventForm.value).subscribe({
         next: (response) => {
-          this.snackBar.open('Evento creado correctamente', 'Cerrar', { duration: 3000 });
-          this.router.navigate(['/create-event']);
+          console.log('Response',response)
+          
         },
         error: (error) => {
           console.error('Error al crear el evento:', error);
@@ -57,7 +75,9 @@ export class EventAddComponent implements OnInit {
           this.snackBar.open(errorMessage, 'Cerrar', { duration: 5000 });
         }
       });
+
     } else {
+      console.log('asda', this.eventForm.value)
       console.error('Formulario no válido');
     }
   }
@@ -70,14 +90,7 @@ export class EventAddComponent implements OnInit {
     return errorMessage;
   }
 
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    this.eventForm.patchValue({
-      imagen: file
-    });
-  }
+  
 
-  getObjectUrl(file: File): string {
-    return URL.createObjectURL(file);
-  }
+  
 }

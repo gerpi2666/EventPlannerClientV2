@@ -31,10 +31,10 @@
 
     <div class="form-group">
       <label for="imagen">Imagen:</label>
-      <input type="file" id="imagen" (change)="onFileSelected($event)" class="form-control-file">
-      <img *ngIf="eventForm.get('imagen').value" [src]="getObjectUrl(eventForm.get('imagen').value)" class="preview-image">
+      <input type="file" id="imagen"  (change)="handleFileInput($event)" class="form-control-file">
+      <img *ngIf="eventForm.get('imagen').value"  class="preview-image">
     </div>
 
-    <button type="submit" [disabled]="!eventForm.valid" class="btn btn-primary">Agregar Evento</button>
+    <button type="submit"  class="btn btn-primary">Agregar Evento</button>
   </form>
 </div>
