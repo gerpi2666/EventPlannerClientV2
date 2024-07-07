@@ -21,6 +21,13 @@ import { FullComponent } from './layouts/full/full.component';
 import { IndexUserComponent } from './user/index-user/index-user.component';
 import { LoginComponent } from './user/login/login.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { EventListComponent } from './event/event-list/event-list.component';
+import { EventAddComponent } from './event/event-add/event-add.component';
+import { EventEditComponent } from './event/event-edit/event-edit.component';
+import { EventDetailComponent } from './event/event-detail/event-detail.component';
+
+
+
 
 const routes: Routes = [
   {
@@ -47,7 +54,11 @@ const routes: Routes = [
       {path:"slide-toggle", component:SlideToggleComponent},
       {path:"tooltip", component:TooltipsComponent},
       {path:"button", component:ButtonsComponent},
-      {path:"users",component:IndexUserComponent}
+      {path:"users",component:IndexUserComponent},
+      { path: 'events', component: EventListComponent },
+      { path: 'events/add', component: EventAddComponent },
+      { path: 'events/edit/:id', component: EventEditComponent },
+      { path: 'events/:id', component: EventDetailComponent }
     ]
   },
 
