@@ -25,8 +25,12 @@ export class ResetPasswordComponent implements OnInit {
   reactiveForm() {
     this.formulario = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+      newPassword: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$') // Expresión regular para la contraseña
+      ]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]]
     }, { validator: this.passwordMatchValidator });
 
     // Escuchar cambios en los campos newPassword y confirmPassword para activar la validación

@@ -12,7 +12,8 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class EventAddComponent implements OnInit {
   eventForm: FormGroup;
-  previewImage:any
+  previewImage:any;
+  summited:boolean;
   constructor(
     private fb: FormBuilder,
     private eventService: GenericService,
@@ -28,8 +29,11 @@ export class EventAddComponent implements OnInit {
     this.eventForm = this.fb.group({
       descripcion: ['', Validators.required],
       fecha: ['', Validators.required],
-      cupo: [0, Validators.required],
-      imagen:  ['', Validators.required] // No es necesario un validator para un campo de tipo file
+      cupo: [0, [
+        Validators.required,
+        Validators.min(6)
+      ]],
+      imagen:  [null, Validators.required] 
     });
   }
 
@@ -51,6 +55,7 @@ export class EventAddComponent implements OnInit {
 
 
   addEvent(): void {
+    this.summited=true;
     if (this.eventForm.valid) {
       console.log('Dta form', this.eventForm.value)
       const { descripcion, fecha, cupo, imagen } = this.eventForm.value;
@@ -79,6 +84,7 @@ export class EventAddComponent implements OnInit {
     } else {
       console.log('asda', this.eventForm.value)
       console.error('Formulario no válido');
+      return;
     }
   }
 
@@ -91,6 +97,9 @@ export class EventAddComponent implements OnInit {
   }
 
   
+  public errorHandling = (control: string, error: string) => {
+    return this.eventForm.controls[control].hasError(error);
+  };
 
   
 }
