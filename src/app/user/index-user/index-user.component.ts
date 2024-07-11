@@ -59,6 +59,10 @@ export class IndexUserComponent implements OnInit {
     this.router.navigate([`users/edit/${id}`]);
   }
 
+  detailUser(id:number){
+    this.router.navigate([`users/detail/${id}`]);
+  }
+
   deleteUser(id:number){
     
     console.log('Id deleted',id)

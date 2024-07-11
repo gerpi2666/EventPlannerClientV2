@@ -61,8 +61,9 @@ const routes: Routes = [
       { path: 'events/edit/:id', component: EventEditComponent },
       { path: 'events/:id', component: EventDetailComponent },
       { path: 'users/create', component: CreateUserComponent },
+      { path: 'users/detail/:id', component: CreateUserComponent },
       { path: 'users/edit/:id', component: CreateUserComponent }
-      
+
 
 
     ]

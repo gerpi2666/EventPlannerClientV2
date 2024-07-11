@@ -43,7 +43,7 @@
             <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Acciones </th>
             <td mat-cell *matCellDef="let element" style="text-align: center;">
               <div style="display: flex; justify-content: center; gap: 8px;">
-                <button mat-icon-button aria-label="View">
+                <button mat-icon-button aria-label="View" (click)="detailUser(element.id)">
                   <mat-icon>visibility</mat-icon>
                 </button>
           

@@ -3,7 +3,8 @@
 
 <form [formGroup]="formulario" enctype="multipart/form-data" style="min-height: 87.90vh; padding: 30px;">
     <a mat-flat-button style="background-color: #0b488c; margin-bottom: 55px;" href="/users"	><mat-icon>arrow_back</mat-icon></a>
-  
+    <input type="hidden" formControlName="id"/>
+
     <mat-card >
         <mat-card-header class="container">
             <h1>{{TitleForm}}</h1>

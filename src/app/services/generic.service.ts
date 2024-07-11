@@ -60,6 +60,6 @@ export class GenericService {
   }
 
   update(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
-    return this.http.post<any | any[]>(`${this.urlAPI}${endopoint}/${objUpdate.id}`, objUpdate);
+    return this.http.post<any | any[]>(`${this.urlAPI}${endopoint}`, objUpdate);
   }
 }

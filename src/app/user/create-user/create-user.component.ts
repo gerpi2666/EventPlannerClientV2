@@ -45,6 +45,7 @@ export class CreateUserComponent implements OnInit {
             this.UserInfo=call.data
             console.log('UserInfo', this.UserInfo)
             this.formulario.setValue({
+              Id: this.UserInfo.id,
               Password: this.UserInfo.password,
               Email: this.UserInfo.email,
               ExpirationDate: this.UserInfo.expirationDate,
@@ -67,6 +68,7 @@ export class CreateUserComponent implements OnInit {
 
   reactiveForm(){
      this.formulario = this.fb.group({
+      Id: [null, null],
       Email: ['', [Validators.required, Validators.email]],
       Password: ['', Validators.required],
       ExpirationDate: ['', Validators.required],
@@ -114,17 +116,36 @@ export class CreateUserComponent implements OnInit {
     } else {
       this.gService
         .update('/update', this.formulario.value)
-        .subscribe((data: any) => {
-          //Obtener respuesta
-          console.log('CALLBACK API', data);
-          this.noti.mensajeRedirect(
-            'Actualizar Material',
-            `Material Actualizado: ${data.Data}`,
-            TipoMessage.success,
-            '/Dash'
-          );
-          this.router.navigate(['/Dash/material']);
+        .subscribe({
+          next: (call) => {
+            if (call.statusCode == 400 || call.statusCode == 401 ) {
+              this.noti.mensaje(
+                'Error',
+                'Usuario no encontrado',
+                TipoMessage.warning
+              );
+              return;
+            }
+  
+            if (call.statusCode == 500) {
+              this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
+              return;
+            }
+  
+            if(call.statusCode==200){
+              this.noti.mensaje(
+                'Exito',
+                'Usuario Actualizado correctamente',
+                TipoMessage.success
+              );
+              this.router.navigate(['/users']);
+            }
+          },
+          error: () => {
+            this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
+          },
         });
+  
     }
   }
 
