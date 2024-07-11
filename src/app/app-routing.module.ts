@@ -25,6 +25,7 @@ import { EventListComponent } from './event/event-list/event-list.component';
 import { EventAddComponent } from './event/event-add/event-add.component';
 import { EventEditComponent } from './event/event-edit/event-edit.component';
 import { EventDetailComponent } from './event/event-detail/event-detail.component';
+import { CreateUserComponent } from './user/create-user/create-user.component';
 
 
 
@@ -58,7 +59,12 @@ const routes: Routes = [
       { path: 'events', component: EventListComponent },
       { path: 'events/add', component: EventAddComponent },
       { path: 'events/edit/:id', component: EventEditComponent },
-      { path: 'events/:id', component: EventDetailComponent }
+      { path: 'events/:id', component: EventDetailComponent },
+      { path: 'users/create', component: CreateUserComponent },
+      { path: 'users/edit/:id', component: CreateUserComponent }
+      
+
+
     ]
   },
 

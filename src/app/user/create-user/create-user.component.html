@@ -1,0 +1,80 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<form [formGroup]="formulario" enctype="multipart/form-data" style="min-height: 87.90vh; padding: 30px;">
+    <mat-card >
+        <mat-card-header class="container">
+            <h1>{{TitleForm}}</h1>
+        </mat-card-header>
+        <mat-card-content class="container">
+            <div class="row">
+                
+                 <mat-form-field class="col-12" >
+                    <mat-label>Nombre de usuario</mat-label>
+
+                        <input matInput formControlName="NombreUsuario" maxlength="20" placeholder="Nombre de usuario">
+                        <mat-error *ngIf="errorHandling('NombreUsuario','required')">
+                            Nombre de usuario es <strong>requerido</strong>
+                        </mat-error>
+                </mat-form-field>
+                          
+                <mat-form-field class="col-12" >
+                    <mat-label>Contraseña</mat-label>
+
+                    <input matInput type="password" formControlName="Password" maxlength="20" placeholder="Contraseña">
+                    <mat-error *ngIf="errorHandling('Password','required')">
+                        La Contraseña es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                
+            </div>
+
+            <div class="row">
+
+                <mat-form-field class="col-4">
+                    <mat-label>Correo electronico</mat-label>
+                    <input matInput formControlName="Email"  placeholder="Correo electronico">
+                    <mat-error *ngIf="errorHandling('Email','required')">
+                        El  Correo electronico es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-4">
+                    <mat-label>Fecha</mat-label>
+                    <input matInput type="date" id="ExpirationDate" formControlName="ExpirationDate">
+                    <mat-error *ngIf="errorHandling('ExpirationDate','required')">
+                        La fecha de vencimiento es <strong>requerida</strong>
+                    </mat-error>
+
+                </mat-form-field>
+
+                <mat-form-field class="col-4">
+                    <mat-label>Rol</mat-label>
+                    <select matNativeControl formControlName="Rol" required>
+                      <option value="1">Super administrador</option>
+                      <option value="2">Administrador</option>
+                      <option value="3">Cliente</option>
+                      <option value="4">Audi</option>
+                    </select>
+                    <mat-error *ngIf="errorHandling('Rol','required')">
+                        El rol de usuario es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                
+            </div>
+
+           
+            
+        </mat-card-content>
+        <mat-card-actions  class="container" style="margin: 25px;">
+            <div class="btne">
+                <button style="width:400px;" mat-raised-button color="accent" (click)="submit()" >Guardar</button>
+            </div>
+            <div class="btne">
+                <button style="width:400px;" mat-raised-button color="warn" (click)="discard()" >Descartar</button>
+            </div>
+        </mat-card-actions>
+
+    </mat-card>
+</form>

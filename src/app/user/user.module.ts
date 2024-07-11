@@ -20,12 +20,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { CreateUserComponent } from './create-user/create-user.component';
 
 @NgModule({
   declarations: [
     IndexUserComponent,
     LoginComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    CreateUserComponent
   ],
   imports: [
     CommonModule,
