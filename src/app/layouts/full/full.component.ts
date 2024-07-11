@@ -47,7 +47,7 @@ export class FullComponent {
 
     {
       link: "/events",
-      icon: "home",
+      icon: "calendar_today",
       menu: "Lista de eventos",
     },
    
