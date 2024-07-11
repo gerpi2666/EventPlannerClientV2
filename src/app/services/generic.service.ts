@@ -34,8 +34,8 @@ export class GenericService {
     return this.http.put<any>(`${this.apiUrl}/${id}`, event);
   }
 
-  deleteEvent(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  deleteEvent(endopoint: string, filtro: any): Observable<any | any[]> {
+    return this.http.post<any | any[]>(`${this.apiUrl}${endopoint}?Id=${filtro}`,null);
   }
 
   // Método para resetear la contraseña

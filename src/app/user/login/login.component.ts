@@ -69,6 +69,8 @@ export class LoginComponent implements OnInit {
           }
 
           if(call.statusCode==200){
+            localStorage.setItem('currentUser', JSON.stringify(call.Data));
+
             this.noti.mensaje(
               'Exito',
               'Credenciales Correctas',
