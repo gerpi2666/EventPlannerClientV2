@@ -3,7 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GenericService } from '../../services/generic.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import {
+  NotificacionService,
+  TipoMessage,
+} from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-event-add',
@@ -18,7 +21,9 @@ export class EventAddComponent implements OnInit {
     private fb: FormBuilder,
     private eventService: GenericService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private noti: NotificacionService,
+
   ) {
     this.reactiveForm();
   }
@@ -27,6 +32,7 @@ export class EventAddComponent implements OnInit {
 
   reactiveForm() {
     this.eventForm = this.fb.group({
+      name: ['', Validators.required],
       descripcion: ['', Validators.required],
       fecha: ['', Validators.required],
       cupo: [0, [
@@ -63,6 +69,30 @@ export class EventAddComponent implements OnInit {
       this.eventService.addEvent(this.eventForm.value).subscribe({
         next: (response) => {
           console.log('Response',response)
+
+          if (response.statusCode == 400 || response.statusCode == 401 ) {
+            this.noti.mensaje(
+              'Error',
+              'Usuario no encontrado',
+              TipoMessage.warning
+            );
+            return;
+          }
+
+          if (response.statusCode == 500) {
+            this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
+            return;
+          }
+
+          if(response.statusCode==200){
+            this.noti.mensaje(
+              'Exito',
+              'Evento creado correctamente',
+              TipoMessage.success
+            );
+            this.router.navigate(['/events']);
+          }
+
           
         },
         error: (error) => {
