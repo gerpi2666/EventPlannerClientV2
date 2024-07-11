@@ -1,0 +1,14 @@
+<div *ngIf="dataSource?.length > 0">
+  <div *ngFor="let event of dataSource">
+    <div class="event-item">
+      <h3>{{ event.descripcion }}</h3>
+      <p>{{ event.fecha }}</p>
+      <p>Cupo: {{ event.cupo }}</p>
+      <!-- Mostrar la imagen en base64 -->
+      <img *ngIf="event.imagen" [src]="sanitizeImage(event.imagen)" alt="Event Image">
+    </div>
+  </div>
+</div>
+<div *ngIf="!dataSource || dataSource.length === 0">
+  <p>No hay eventos para mostrar.</p>
+</div>

@@ -51,6 +51,11 @@ export class FullComponent {
       menu: "Agregar eventos",
     },
     {
+      link: "/events",
+      icon: "home",
+      menu: "Lista de eventos",
+    },
+    {
       link: "/users",
       icon: "users",
       menu: "Usuarios",

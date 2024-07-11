@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GenericService } from '../../services/generic.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ChangeDetectorRef } from '@angular/core';
+
 
 @Component({
   selector: 'app-event-add',

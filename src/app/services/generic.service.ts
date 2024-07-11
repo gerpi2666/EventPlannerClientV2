@@ -16,8 +16,8 @@ export class GenericService {
   constructor(private http: HttpClient) {}
 
   
-  getEvents(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  getEvents(endopoint: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}${endopoint}`);
   }
 
   getEventById(id: number): Observable<any> {
