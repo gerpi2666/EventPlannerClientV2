@@ -9,9 +9,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class GenericService {
 
   // URL del API, definida en environments/environment.ts
-  urlAPI: string = 'https://localhost:44393/User';
+  urlAPI: string = 'https://localhost:7199/User';
 
-  private apiUrl = 'https://localhost:44393/Event'; // Cambia esto por tu URL real
+  private apiUrl = 'https://localhost:7199/Event'; // Cambia esto por tu URL real
 
   constructor(private http: HttpClient) {}
 
@@ -34,8 +34,8 @@ export class GenericService {
     return this.http.put<any>(`${this.apiUrl}/${id}`, event);
   }
 
-  deleteEvent(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/${id}`);
+  deleteEvent(endopoint: string, filtro: any): Observable<any | any[]> {
+    return this.http.post<any | any[]>(`${this.apiUrl}${endopoint}?Id=${filtro}`,null);
   }
 
   // Método para resetear la contraseña
@@ -52,11 +52,14 @@ export class GenericService {
     return this.http.get<any | any[]>(`${this.urlAPI}${endopoint}/${filtro}`);
   }
 
+  delete(endopoint: string, filtro: any): Observable<any | any[]> {
+    return this.http.post<any | any[]>(`${this.urlAPI}${endopoint}?id=${filtro}`,null);
+  }
   create(endopoint: string, objCreate: any | any): Observable<any | any[]> {
     return this.http.post<any | any[]>(`${this.urlAPI}${endopoint}`, objCreate);
   }
 
   update(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
-    return this.http.post<any | any[]>(`${this.urlAPI}${endopoint}/${objUpdate.id}`, objUpdate);
+    return this.http.post<any | any[]>(`${this.urlAPI}${endopoint}`, objUpdate);
   }
 }

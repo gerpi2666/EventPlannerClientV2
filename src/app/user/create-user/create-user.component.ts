@@ -16,37 +16,46 @@ export class CreateUserComponent implements OnInit {
   TitleForm:string= "Agregar Usuarios"
   UserInfo
   Id:any
-  IsCreate: boolean
+  IsCreate: boolean = true;
 
   constructor(
     private fb: FormBuilder,
     private gService: GenericService,
     private router: Router,
     private activeRouter: ActivatedRoute,
-    private notify: NotificacionService,
+    private noti: NotificacionService,
   ) {
     this.reactiveForm();
   }
 
   ngOnInit(): void {
-    debugger
+    
     this.activeRouter.params.subscribe((params: Params) => {
-      this.Id = params['Id'];
+      this.Id = params['id'];
+      console.log('ID', this.Id)
       if (this.Id != undefined && !isNaN(Number(this.Id))) {
         this.IsCreate = false;
         this.TitleForm = 'Actualizar Usuario';
         //call al api
         this.gService
-        .get('/getById',this.Id)
+        .get('/getById',`?id=${this.Id}`)
         .subscribe({
           next: (call) => {
-            
-            this.UserInfo=call.Data
+            console.log('EDIT CALL', call)
+            this.UserInfo=call.data
             console.log('UserInfo', this.UserInfo)
-  
+            this.formulario.setValue({
+              Id: this.UserInfo.id,
+              Password: this.UserInfo.password,
+              Email: this.UserInfo.email,
+              ExpirationDate: this.UserInfo.expirationDate,
+              Rol: this.UserInfo.rol,
+              NombreUsuario: this.UserInfo.nombreUsuario,
+           
+            });
           },
           error: () => {
-            this.notify.mensaje('Error', 'Error de conexion', TipoMessage.error);
+            this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
           },
         });
   
@@ -59,6 +68,7 @@ export class CreateUserComponent implements OnInit {
 
   reactiveForm(){
      this.formulario = this.fb.group({
+      Id: [null, null],
       Email: ['', [Validators.required, Validators.email]],
       Password: ['', Validators.required],
       ExpirationDate: ['', Validators.required],
@@ -71,37 +81,76 @@ export class CreateUserComponent implements OnInit {
     if (this.IsCreate) {
 
       this.gService
-        .create('user', this.formulario.value)       
-        .subscribe((data: any) => {
-          //Obtener respuesta
-          this.notify.mensajeRedirect(
-            'Crear Material',
-            `Material creado: ${data.Data}`,
-            TipoMessage.success,
-            '/Dash'
-          );
-          //this.router.navigate(['/Dash/material']);
-        });
+        .create('/create', this.formulario.value)       
+       .subscribe({
+        next: (call) => {
+          if (call.statusCode == 400 || call.statusCode == 401 ) {
+            this.noti.mensaje(
+              'Error',
+              'Usuario no encontrado',
+              TipoMessage.warning
+            );
+            return;
+          }
 
-        
+          if (call.statusCode == 500) {
+            this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
+            return;
+          }
+
+          if(call.statusCode==200){
+            this.noti.mensaje(
+              'Exito',
+              'Usuario creado correctamente',
+              TipoMessage.success
+            );
+            this.router.navigate(['/users']);
+          }
+        },
+        error: () => {
+          this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
+        },
+      });
+
+
     } else {
       this.gService
-        .update('User', this.formulario.value)
-        .subscribe((data: any) => {
-          //Obtener respuesta
-          console.log('CALLBACK API', data);
-          this.notify.mensajeRedirect(
-            'Actualizar Material',
-            `Material Actualizado: ${data.Data}`,
-            TipoMessage.success,
-            '/Dash'
-          );
-          this.router.navigate(['/Dash/material']);
+        .update('/update', this.formulario.value)
+        .subscribe({
+          next: (call) => {
+            if (call.statusCode == 400 || call.statusCode == 401 ) {
+              this.noti.mensaje(
+                'Error',
+                'Usuario no encontrado',
+                TipoMessage.warning
+              );
+              return;
+            }
+  
+            if (call.statusCode == 500) {
+              this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
+              return;
+            }
+  
+            if(call.statusCode==200){
+              this.noti.mensaje(
+                'Exito',
+                'Usuario Actualizado correctamente',
+                TipoMessage.success
+              );
+              this.router.navigate(['/users']);
+            }
+          },
+          error: () => {
+            this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
+          },
         });
+  
     }
   }
 
   discard(){
+    this.router.navigate(['/users']);
 
   }
 

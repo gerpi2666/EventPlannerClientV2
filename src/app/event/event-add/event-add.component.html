@@ -2,6 +2,15 @@
   <h1>{{ submitted ? 'Editar Evento' : 'Crear Evento' }}</h1>
 
   <form (ngSubmit)="addEvent()" [formGroup]="eventForm" enctype="multipart/form-data">
+    
+    <mat-form-field class="full-width mb-4">
+      <mat-label>Nombre del evento</mat-label>
+      <input matInput type="text" id="name" formControlName="name">     
+      <mat-error *ngIf=" summited && errorHandling('name', 'required')">
+        El nombre es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>
+    
     <mat-form-field class="full-width mb-4">
       <mat-label>Descripción</mat-label>
       <textarea matInput id="descripcion" formControlName="descripcion" rows="4"></textarea>
