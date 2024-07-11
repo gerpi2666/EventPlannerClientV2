@@ -69,11 +69,11 @@ export class EventAddComponent implements OnInit {
               Id:this.EventInfo.id,
               name: this.EventInfo.name,
               descripcion: this.EventInfo.descripcion,
-              fecha: this.EventInfo.fecha,
+              fecha: this.formatDate(this.EventInfo.fecha),
               cupo: this.EventInfo.cupo,
-              imagen: this.EventInfo.imagen,
-           
+              imagen: this.EventInfo.imagen
             });
+            this.previewImage = this.sanitizeImage(this.EventInfo.imagen);
           },
           error: () => {
             this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
@@ -106,7 +106,7 @@ export class EventAddComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.previewImage = e.target.result;
-        this.previewImage= this.previewImage.replace('data:image/png;base64,', '');
+        this.previewImage = this.previewImage.replace('data:image/png;base64,', '');
         this.eventForm.patchValue({
           imagen: this.previewImage
         });
@@ -208,6 +208,14 @@ export class EventAddComponent implements OnInit {
 
   sanitizeImage(image: string): string {
     return `data:image/png;base64,${image}`;
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
 
 }

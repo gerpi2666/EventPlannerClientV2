@@ -34,7 +34,7 @@
           <ng-container matColumnDef="Fecha vencimiento">
             <th mat-header-cell *matHeaderCellDef> Fecha vencimiento </th>
             <td mat-cell *matCellDef="let element">
-              <p>{{element.expirationDate | date:'dd, MMMM, yyyy':'es'}}</p>
+              <p>{{element.expirationDate | date:' MMMM dd, yyyy':'es'}}</p>
             </td>
           </ng-container>
   

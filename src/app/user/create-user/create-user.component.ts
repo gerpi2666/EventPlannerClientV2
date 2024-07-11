@@ -48,7 +48,8 @@ export class CreateUserComponent implements OnInit {
               Id: this.UserInfo.id,
               Password: this.UserInfo.password,
               Email: this.UserInfo.email,
-              ExpirationDate: this.UserInfo.expirationDate,
+            
+              ExpirationDate: this.formatDate(this.UserInfo.expirationDate),
               Rol: this.UserInfo.rol,
               NombreUsuario: this.UserInfo.nombreUsuario,
            
@@ -157,5 +158,14 @@ export class CreateUserComponent implements OnInit {
   public errorHandling = (control: string, error: string) => {
     return this.formulario.controls[control].hasError(error);
   };
+
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
+  }
   
 }
