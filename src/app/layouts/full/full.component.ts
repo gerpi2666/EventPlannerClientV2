@@ -44,6 +44,12 @@ export class FullComponent {
       icon: "home",
       menu: "Reset Password",
     },
+   
+    {
+      link: "/events/add",
+      icon: "home",
+      menu: "Agregar eventos",
+    },
     {
       link: "/users",
       icon: "users",
