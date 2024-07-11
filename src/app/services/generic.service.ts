@@ -52,6 +52,9 @@ export class GenericService {
     return this.http.get<any | any[]>(`${this.urlAPI}${endopoint}/${filtro}`);
   }
 
+  delete(endopoint: string, filtro: any): Observable<any | any[]> {
+    return this.http.post<any | any[]>(`${this.urlAPI}${endopoint}?id=${filtro}`,null);
+  }
   create(endopoint: string, objCreate: any | any): Observable<any | any[]> {
     return this.http.post<any | any[]>(`${this.urlAPI}${endopoint}`, objCreate);
   }

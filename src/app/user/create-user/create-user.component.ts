@@ -16,22 +16,23 @@ export class CreateUserComponent implements OnInit {
   TitleForm:string= "Agregar Usuarios"
   UserInfo
   Id:any
-  IsCreate: boolean
+  IsCreate: boolean = true;
 
   constructor(
     private fb: FormBuilder,
     private gService: GenericService,
     private router: Router,
     private activeRouter: ActivatedRoute,
-    private notify: NotificacionService,
+    private noti: NotificacionService,
   ) {
     this.reactiveForm();
   }
 
   ngOnInit(): void {
-    debugger
+    
     this.activeRouter.params.subscribe((params: Params) => {
       this.Id = params['Id'];
+      console.log('ID', this.Id)
       if (this.Id != undefined && !isNaN(Number(this.Id))) {
         this.IsCreate = false;
         this.TitleForm = 'Actualizar Usuario';
@@ -46,7 +47,7 @@ export class CreateUserComponent implements OnInit {
   
           },
           error: () => {
-            this.notify.mensaje('Error', 'Error de conexion', TipoMessage.error);
+            this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
           },
         });
   
@@ -71,26 +72,45 @@ export class CreateUserComponent implements OnInit {
     if (this.IsCreate) {
 
       this.gService
-        .create('user', this.formulario.value)       
-        .subscribe((data: any) => {
-          //Obtener respuesta
-          this.notify.mensajeRedirect(
-            'Crear Material',
-            `Material creado: ${data.Data}`,
-            TipoMessage.success,
-            '/Dash'
-          );
-          //this.router.navigate(['/Dash/material']);
-        });
+        .create('/create', this.formulario.value)       
+       .subscribe({
+        next: (call) => {
+          if (call.statusCode == 400 || call.statusCode == 401 ) {
+            this.noti.mensaje(
+              'Error',
+              'Usuario no encontrado',
+              TipoMessage.warning
+            );
+            return;
+          }
 
-        
+          if (call.statusCode == 500) {
+            this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
+            return;
+          }
+
+          if(call.statusCode==200){
+            this.noti.mensaje(
+              'Exito',
+              'Usuario creado correctamente',
+              TipoMessage.success
+            );
+            this.router.navigate(['/users']);
+          }
+        },
+        error: () => {
+          this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
+        },
+      });
+
+
     } else {
       this.gService
         .update('User', this.formulario.value)
         .subscribe((data: any) => {
           //Obtener respuesta
           console.log('CALLBACK API', data);
-          this.notify.mensajeRedirect(
+          this.noti.mensajeRedirect(
             'Actualizar Material',
             `Material Actualizado: ${data.Data}`,
             TipoMessage.success,
@@ -102,6 +122,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   discard(){
+    this.router.navigate(['/users']);
 
   }
 
