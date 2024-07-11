@@ -55,6 +55,12 @@ export class FullComponent {
       icon: "users",
       menu: "Usuarios",
     },
+
+    {
+      link: "/users/create",
+      icon: "home",
+      menu: "User create",
+    },
     {
       link: "/button",
       icon: "disc",

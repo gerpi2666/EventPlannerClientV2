@@ -13,7 +13,7 @@ import {
 })
 export class CreateUserComponent implements OnInit {
   formulario:any
-  TitleForm:any
+  TitleForm:string= "Agregar Usuarios"
   UserInfo
   Id:any
   IsCreate: boolean
@@ -29,6 +29,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    debugger
     this.activeRouter.params.subscribe((params: Params) => {
       this.Id = params['Id'];
       if (this.Id != undefined && !isNaN(Number(this.Id))) {
