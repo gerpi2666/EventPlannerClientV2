@@ -1,14 +1,25 @@
-<div *ngIf="dataSource?.length > 0">
-  <div *ngFor="let event of dataSource">
-    <div class="event-item">
-      <h3>{{ event.descripcion }}</h3>
-      <p>{{ event.fecha }}</p>
-      <p>Cupo: {{ event.cupo }}</p>
-      <!-- Mostrar la imagen en base64 -->
-      <img *ngIf="event.imagen" [src]="sanitizeImage(event.imagen)" alt="Event Image">
-    </div>
+<body>
+  <div class="event-list">
+    <mat-card *ngFor="let event of dataSource" class="event-card">
+      <mat-card-header>
+        <mat-card-title>{{ event.name }}</mat-card-title>
+        <mat-card-subtitle>{{ event.fecha | date: 'dd/MM/yyyy' }}</mat-card-subtitle>
+      </mat-card-header>
+      <img [src]="sanitizeImage(event.imagen)" alt="Event Image" class="event-image">
+      <mat-card-content>
+        <div class="event-details">
+          <p><strong>Descripción:</strong> {{ event.descripcion }}</p>
+          <p><strong>Cupo:</strong> {{ event.cupo }}</p>
+        </div>
+        <div class="event-footer">
+        
+          <mat-card-actions class="event-actions">
+            <button mat-button color="primary" (click)="openDetailDialog(event)">Detalle</button>
+            <button mat-button color="warn">Eliminar</button>
+            <button mat-button color="accent">Editar</button>
+          </mat-card-actions>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-</div>
-<div *ngIf="!dataSource || dataSource.length === 0">
-  <p>No hay eventos para mostrar.</p>
-</div>
+</body>
