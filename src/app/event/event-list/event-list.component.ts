@@ -3,6 +3,7 @@ import { GenericService } from '../../services/generic.service';
 import { NotificacionService, TipoMessage } from 'src/app/services/notification.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EventDetailComponent } from '../event-detail/event-detail.component';
+import { EventAddComponent } from '../event-add/event-add.component';
 
 @Component({
   selector: 'app-event-list',
@@ -32,9 +33,9 @@ export class EventListComponent implements OnInit {
 
         this.DatoAllEvent.forEach(element => {
           if(element.activo){
-            console.log('DATOS LIST callback',this.DatoAllEvent)
-            this.dataSource= element.eventos
-            }
+        console.log('DATOS LIST callback',this.DatoAllEvent)
+        this.dataSource= element.eventos
+        }
         });
         
       },
@@ -54,6 +55,19 @@ export class EventListComponent implements OnInit {
     const dialogRef = this.dialog.open(EventDetailComponent, {
       width: '500px',
       data: event
+    });
+  }
+
+  openEditDialog(event: any): void {
+    const dialogRef = this.dialog.open(EventAddComponent, {
+      width: '400px',
+      data: event
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.ListEvents(); // Actualiza la lista de eventos después de editar
+      }
     });
   }
 }

@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="centered-title">Agregar Evento</h2>
+  <h1>{{ submitted ? 'Editar Evento' : 'Crear Evento' }}</h1>
 
   <form (ngSubmit)="addEvent()" [formGroup]="eventForm" enctype="multipart/form-data">
     <mat-form-field class="full-width mb-4">
@@ -8,7 +8,7 @@
       <mat-error *ngIf="eventForm.get('descripcion').invalid && (eventForm.get('descripcion').dirty || eventForm.get('descripcion').touched)">
         Descripción requerida.
       </mat-error>
-      <mat-error *ngIf=" summited && errorHandling('descripcion', 'required')">
+      <mat-error *ngIf=" submitted && errorHandling('descripcion', 'required')">
         La fecha es <strong>requerida</strong>
       </mat-error>
     </mat-form-field>
@@ -19,7 +19,7 @@
       <mat-error *ngIf="eventForm.get('fecha').invalid && (eventForm.get('fecha').dirty || eventForm.get('fecha').touched)">
         Fecha requerida.
       </mat-error>
-      <mat-error *ngIf=" summited && errorHandling('fecha', 'required')">
+      <mat-error *ngIf=" submitted && errorHandling('fecha', 'required')">
         La fecha es <strong>requerida</strong>
       </mat-error>
     </mat-form-field>
@@ -30,7 +30,7 @@
       <mat-error *ngIf="eventForm.get('cupo').hasError('min')">
         El cupo debe ser mayor a 5.
       </mat-error>
-      <mat-error *ngIf=" summited && errorHandling('cupo', 'required')">
+      <mat-error *ngIf=" submitted && errorHandling('cupo', 'required')">
         El cupo es <strong>requerido</strong>
       </mat-error>
     </mat-form-field>
@@ -40,7 +40,7 @@
       <label for="imagen">Imagen:</label>
       <input type="file" id="imagen" (change)="handleFileInput($event)" class="form-control-file">
       <img *ngIf="previewImage" [src]="previewImage" class="preview-image">
-      <mat-error *ngIf=" summited && errorHandling('imagen', 'required')">
+      <mat-error *ngIf=" submitted && errorHandling('imagen', 'required')">
         La imagen es <strong>requerida</strong>
       </mat-error>
     </div>

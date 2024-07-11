@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GenericService } from '../../services/generic.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
@@ -11,19 +12,31 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./event-add.component.scss']
 })
 export class EventAddComponent implements OnInit {
+  
   eventForm: FormGroup;
   previewImage:any;
-  summited:boolean;
+  submitted:boolean;
   constructor(
     private fb: FormBuilder,
     private eventService: GenericService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialogRef: MatDialogRef<EventAddComponent> | null, // Cambiar a nullable
+    @Inject(MAT_DIALOG_DATA) private eventToEdit: any | null // Cambiar a nullable
   ) {
     this.reactiveForm();
   }
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.eventToEdit) {
+      this.eventForm.patchValue({
+        descripcion: this.eventToEdit.descripcion,
+        fecha: this.eventToEdit.fecha,
+        cupo: this.eventToEdit.cupo,
+        imagen: this.eventToEdit.imagen
+      });
+      this.previewImage = this.sanitizeImage(this.eventToEdit.imagen);
+    }
+  }
 
   reactiveForm() {
     this.eventForm = this.fb.group({
@@ -52,42 +65,60 @@ export class EventAddComponent implements OnInit {
     }
   }
   
-
-
+  
   addEvent(): void {
-    this.summited=true;
+    this.submitted = true;
     if (this.eventForm.valid) {
-      console.log('Dta form', this.eventForm.value)
       const { descripcion, fecha, cupo, imagen } = this.eventForm.value;
 
-      this.eventService.addEvent(this.eventForm.value).subscribe({
-        next: (response) => {
-          console.log('Response',response)
-          
-        },
-        error: (error) => {
-          console.error('Error al crear el evento:', error);
-          let errorMessage = 'Error al crear el evento.';
-
-          if (error.error) {
-            if (error.error.title) {
-              errorMessage = error.error.title;
-            } else if (error.error.errors) {
-              errorMessage = this.formatValidationErrors(error.error.errors);
+      if (this.eventToEdit) {
+        const eventId = this.eventToEdit.EventoId;
+        this.eventService.updateEvent(eventId, this.eventForm.value).subscribe({
+          next: (response) => {
+            this.snackBar.open('Evento actualizado correctamente', 'Cerrar', { duration: 5000 });
+            if (this.dialogRef) {
+              this.dialogRef.close(true); // Cierra el diálogo y notifica al componente principal
             }
+          },
+          error: (error) => {
+            let errorMessage = 'Error al actualizar el evento.';
+            if (error.error) {
+              if (error.error.title) {
+                errorMessage = error.error.title;
+              } else if (error.error.errors) {
+                errorMessage = this.formatValidationErrors(error.error.errors);
+              }
+            }
+            this.snackBar.open(errorMessage, 'Cerrar', { duration: 5000 });
           }
-
-          this.snackBar.open(errorMessage, 'Cerrar', { duration: 5000 });
-        }
-      });
-
+        });
+      } else {
+        this.eventService.addEvent(this.eventForm.value).subscribe({
+          next: (response) => {
+            this.snackBar.open('Evento creado correctamente', 'Cerrar', { duration: 5000 });
+            if (this.dialogRef) {
+              this.dialogRef.close(true); // Cierra el diálogo y notifica al componente principal
+            } else {
+              this.router.navigate(['/eventos']); // Redirige si no se usa el diálogo
+            }
+          },
+          error: (error) => {
+            let errorMessage = 'Error al crear el evento.';
+            if (error.error) {
+              if (error.error.title) {
+                errorMessage = error.error.title;
+              } else if (error.error.errors) {
+                errorMessage = this.formatValidationErrors(error.error.errors);
+              }
+            }
+            this.snackBar.open(errorMessage, 'Cerrar', { duration: 5000 });
+          }
+        });
+      }
     } else {
-      console.log('asda', this.eventForm.value)
-      console.error('Formulario no válido');
       return;
     }
   }
-
   formatValidationErrors(errors: any): string {
     let errorMessage = 'Errores de validación:';
     Object.keys(errors).forEach(key => {
@@ -96,10 +127,12 @@ export class EventAddComponent implements OnInit {
     return errorMessage;
   }
 
-  
   public errorHandling = (control: string, error: string) => {
     return this.eventForm.controls[control].hasError(error);
   };
 
-  
+  sanitizeImage(image: string): string {
+    return `data:image/png;base64,${image}`;
+  }
+
 }
