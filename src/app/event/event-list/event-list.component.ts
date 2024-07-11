@@ -10,7 +10,7 @@ import { NotificacionService, TipoMessage } from 'src/app/services/notification.
 export class EventListComponent implements OnInit {
   errorMessage: string = '';
   DatoAllEvent:any;
-  dataSource: any[] = [];
+  dataSource: any;
 
   constructor(private eventService: GenericService, private noti: NotificacionService) { }
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class EventListComponent implements OnInit {
     .subscribe({
       next: (call) => {
         
-        this.DatoAllEvent= call
+        this.DatoAllEvent= call.data
         console.log('DATOS LIST callback',this.DatoAllEvent)
         this.dataSource= this.DatoAllEvent
       },
@@ -39,6 +39,6 @@ export class EventListComponent implements OnInit {
 
   sanitizeImage(image: string): string {
     // Remueve el prefijo 'data:image/jpeg;base64,' para obtener solo el contenido base64
-    return `data:image/png;base64,`;
+    return `data:image/png;base64,${image}`;
   }
 }

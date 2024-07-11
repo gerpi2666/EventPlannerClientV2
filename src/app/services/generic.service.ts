@@ -11,13 +11,13 @@ export class GenericService {
   // URL del API, definida en environments/environment.ts
   urlAPI: string = 'https://localhost:7199/User';
 
-  private apiUrl = 'https://localhost:44393/Event'; // Cambia esto por tu URL real
+  private apiUrl = 'https://localhost:7199/Event'; // Cambia esto por tu URL real
 
   constructor(private http: HttpClient) {}
 
   
-  getEvents(endopoint: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}${endopoint}`);
+  getEvents(endopoint: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}${endopoint}`);
   }
 
   getEventById(id: number): Observable<any> {
