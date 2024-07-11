@@ -31,20 +31,27 @@ export class CreateUserComponent implements OnInit {
   ngOnInit(): void {
     
     this.activeRouter.params.subscribe((params: Params) => {
-      this.Id = params['Id'];
+      this.Id = params['id'];
       console.log('ID', this.Id)
       if (this.Id != undefined && !isNaN(Number(this.Id))) {
         this.IsCreate = false;
         this.TitleForm = 'Actualizar Usuario';
         //call al api
         this.gService
-        .get('/getById',this.Id)
+        .get('/getById',`?id=${this.Id}`)
         .subscribe({
           next: (call) => {
-            
-            this.UserInfo=call.Data
+            console.log('EDIT CALL', call)
+            this.UserInfo=call.data
             console.log('UserInfo', this.UserInfo)
-  
+            this.formulario.setValue({
+              Password: this.UserInfo.password,
+              Email: this.UserInfo.email,
+              ExpirationDate: this.UserInfo.expirationDate,
+              Rol: this.UserInfo.rol,
+              NombreUsuario: this.UserInfo.nombreUsuario,
+           
+            });
           },
           error: () => {
             this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
@@ -106,7 +113,7 @@ export class CreateUserComponent implements OnInit {
 
     } else {
       this.gService
-        .update('User', this.formulario.value)
+        .update('/update', this.formulario.value)
         .subscribe((data: any) => {
           //Obtener respuesta
           console.log('CALLBACK API', data);
