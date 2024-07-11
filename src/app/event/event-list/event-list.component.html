@@ -1,5 +1,8 @@
 <body>
+  <a mat-flat-button style="background-color: #0b488c; margin: 55px;" href="events/add"	><mat-icon>add</mat-icon>Nuevo Evento</a>
+
   <div class="event-list">
+
     <mat-card *ngFor="let event of dataSource" class="event-card">
       <mat-card-header>
         <mat-card-title>{{ event.name }}</mat-card-title>

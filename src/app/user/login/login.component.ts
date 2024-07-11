@@ -24,12 +24,12 @@ export class LoginComponent implements OnInit {
     public fb: FormBuilder,
     private gService: GenericService,
     private router: Router,
-    private route: ActivatedRoute,    private noti: NotificacionService
-
+    private route: ActivatedRoute,
+    private noti: NotificacionService
   ) {
     this.reactiveForm();
   }
- 
+
   reactiveForm() {
     this.formulario = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -51,10 +51,10 @@ export class LoginComponent implements OnInit {
     }
 
     this.gService
-      .create('/login',this.formulario.value)
+      .create('/login', this.formulario.value)
       .subscribe({
         next: (call) => {
-          if (call.statusCode == 400 || call.statusCode == 401 ) {
+          if (call.statusCode == 400 || call.statusCode == 401) {
             this.noti.mensaje(
               'Error',
               'Credenciales incorrectas',
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
             return;
           }
 
-          if(call.statusCode==200){
+          if (call.statusCode == 200) {
             localStorage.setItem('currentUser', JSON.stringify(call.Data));
 
             this.noti.mensaje(

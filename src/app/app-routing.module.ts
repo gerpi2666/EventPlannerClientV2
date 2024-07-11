@@ -27,35 +27,32 @@ import { EventEditComponent } from './event/event-edit/event-edit.component';
 import { EventDetailComponent } from './event/event-detail/event-detail.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
 
-
-
-
 const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
   {
-    path:"",
-    component:FullComponent,
+    path: '',
+    component: FullComponent,
     children: [
-      {path:"", redirectTo:"/home", pathMatch:"full"},
-      {path:"home", component:DashboardComponent},
-      {path:"login", component:LoginComponent},
+      { path: 'Dash', component: DashboardComponent },
       { path: 'reset-password', component: ResetPasswordComponent },
-      {path:"alerts", component:AlertsComponent},
-      {path:"forms", component:FormsComponent},
-      {path:"table", component:ProductComponent},
-      {path:"grid-list", component:GridListComponent},
-      {path:"menu", component:MenuComponent},
-      {path:"tabs", component:TabsComponent},
-      {path:"expansion", component:ExpansionComponent},
-      {path:"chips", component:ChipsComponent},
-      {path:"progress", component:ProgressComponent},
-      {path:"toolbar", component:ToolbarComponent},
-      {path:"progress-snipper", component:ProgressSnipperComponent},
-      {path:"snackbar", component:SnackbarComponent},
-      {path:"slider", component:SliderComponent},
-      {path:"slide-toggle", component:SlideToggleComponent},
-      {path:"tooltip", component:TooltipsComponent},
-      {path:"button", component:ButtonsComponent},
-      {path:"users",component:IndexUserComponent},
+      { path: 'alerts', component: AlertsComponent },
+      { path: 'forms', component: FormsComponent },
+      { path: 'table', component: ProductComponent },
+      { path: 'grid-list', component: GridListComponent },
+      { path: 'menu', component: MenuComponent },
+      { path: 'tabs', component: TabsComponent },
+      { path: 'expansion', component: ExpansionComponent },
+      { path: 'chips', component: ChipsComponent },
+      { path: 'progress', component: ProgressComponent },
+      { path: 'toolbar', component: ToolbarComponent },
+      { path: 'progress-snipper', component: ProgressSnipperComponent },
+      { path: 'snackbar', component: SnackbarComponent },
+      { path: 'slider', component: SliderComponent },
+      { path: 'slide-toggle', component: SlideToggleComponent },
+      { path: 'tooltip', component: TooltipsComponent },
+      { path: 'button', component: ButtonsComponent },
+      { path: 'users', component: IndexUserComponent },
       { path: 'events', component: EventListComponent },
       { path: 'events/add', component: EventAddComponent },
       { path: 'events/edit/:id', component: EventAddComponent },
@@ -63,15 +60,11 @@ const routes: Routes = [
       { path: 'users/create', component: CreateUserComponent },
       { path: 'users/detail/:id', component: CreateUserComponent },
       { path: 'users/edit/:id', component: CreateUserComponent }
-
-
-
     ]
   },
-
-  {path:"", redirectTo:"/home", pathMatch:"full"},
-  {path:"**", redirectTo:"/home", pathMatch:"full"},
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
