@@ -1,7 +1,10 @@
 <div class="container">
+  <a mat-flat-button style="background-color: #0b488c; margin-bottom: 55px;" href="/events"	><mat-icon>arrow_back</mat-icon></a>
+
   <h1>{{TitleForm}}</h1>
 
   <form (ngSubmit)="addEvent()" [formGroup]="eventForm" enctype="multipart/form-data">
+
     <input type="hidden" formControlName="Id"/>
 
     <mat-form-field class="full-width mb-4">
