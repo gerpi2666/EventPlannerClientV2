@@ -71,8 +71,9 @@ export class EventListComponent implements OnInit {
             'Evento eliminado con exito',
             TipoMessage.success
           );
-          this.router.navigate(['/events']);
+          window.location.reload(); 
         }
+
       },
       error: () => {
         this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
