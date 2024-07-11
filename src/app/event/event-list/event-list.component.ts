@@ -29,8 +29,14 @@ export class EventListComponent implements OnInit {
       next: (call) => {
         
         this.DatoAllEvent= call.data
-        console.log('DATOS LIST callback',this.DatoAllEvent)
-        this.dataSource= this.DatoAllEvent
+
+        this.DatoAllEvent.forEach(element => {
+          if(element.activo){
+            console.log('DATOS LIST callback',this.DatoAllEvent)
+            this.dataSource= element.eventos
+            }
+        });
+        
       },
       error: () => {
         this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);

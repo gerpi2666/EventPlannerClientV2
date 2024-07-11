@@ -1,1 +1,22 @@
-<p>event-edit works!</p>
+<h2>Update Event</h2>
+<div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+<form (ngSubmit)="updateEvent()">
+  <div class="form-group">
+    <label for="descripcion">Descripción:</label>
+    <input type="text" id="descripcion" name="descripcion" [(ngModel)]="event.descripcion" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" name="fecha" [(ngModel)]="event.fecha" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="cupo">Cupo:</label>
+    <input type="number" id="cupo" name="cupo" [(ngModel)]="event.cupo" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="imagen">Imagen (base64):</label>
+    <input type="text" id="imagen" name="imagen" [(ngModel)]="event.imagen" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary">Actualizar Evento</button>
+</form>

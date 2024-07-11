@@ -11,7 +11,6 @@ export class EventDetailComponent {
 
   
   sanitizeImage(image: string): string {
-    // Remueve el prefijo 'data:image/jpeg;base64,' para obtener solo el contenido base64
     return `data:image/png;base64,${image}`;
   }
 }
