@@ -68,7 +68,37 @@ export class CreateUserComponent implements OnInit {
   }
 
   submit(){
+    if (this.IsCreate) {
 
+      this.gService
+        .create('user', this.formulario.value)       
+        .subscribe((data: any) => {
+          //Obtener respuesta
+          this.notify.mensajeRedirect(
+            'Crear Material',
+            `Material creado: ${data.Data}`,
+            TipoMessage.success,
+            '/Dash'
+          );
+          //this.router.navigate(['/Dash/material']);
+        });
+
+        
+    } else {
+      this.gService
+        .update('User', this.formulario.value)
+        .subscribe((data: any) => {
+          //Obtener respuesta
+          console.log('CALLBACK API', data);
+          this.notify.mensajeRedirect(
+            'Actualizar Material',
+            `Material Actualizado: ${data.Data}`,
+            TipoMessage.success,
+            '/Dash'
+          );
+          this.router.navigate(['/Dash/material']);
+        });
+    }
   }
 
   discard(){
