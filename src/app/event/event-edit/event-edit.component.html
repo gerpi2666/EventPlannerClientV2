@@ -1,7 +1,7 @@
 <h2>Update Event</h2>
 <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
-<form (ngSubmit)="updateEvent()">
+<form >
   <div class="form-group">
     <label for="descripcion">Descripción:</label>
     <input type="text" id="descripcion" name="descripcion" [(ngModel)]="event.descripcion" class="form-control">

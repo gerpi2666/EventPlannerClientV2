@@ -20,9 +20,10 @@ export class GenericService {
     return this.http.get<any>(`${this.apiUrl}${endopoint}`);
   }
 
-  getEventById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  getEventById(endopoint: string, filtro: any): Observable<any | any[]> {
+    return this.http.get<any | any[]>(`${this.apiUrl}${endopoint}/${filtro}`);
   }
+
 
   addEvent(objCreate: any | any): Observable<any> {
     
@@ -30,8 +31,8 @@ export class GenericService {
    
   }
 
-  updateEvent(id: number, event: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, event);
+  updateEvent(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
+    return this.http.post<any | any[]>(`${this.apiUrl}${endopoint}`, objUpdate);
   }
 
   deleteEvent(endopoint: string, filtro: any): Observable<any | any[]> {

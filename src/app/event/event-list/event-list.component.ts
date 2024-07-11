@@ -80,6 +80,10 @@ export class EventListComponent implements OnInit {
     });
   }
 
+  updateEvent(id:number){
+    this.router.navigate([`events/edit/${id}`]);
+
+  }
 
   sanitizeImage(image: string): string {
     // Remueve el prefijo 'data:image/jpeg;base64,' para obtener solo el contenido base64

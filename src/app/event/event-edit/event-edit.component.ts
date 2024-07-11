@@ -20,30 +20,30 @@ export class EventEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventId = +this.route.snapshot.paramMap.get('id'); // Assuming you retrieve event ID from route params
-    this.fetchEvent(this.eventId);
+    //this.fetchEvent(this.eventId);
   }
 
-  fetchEvent(id: number) {
-    this.eventService.getEventById(id).subscribe({
-      next: (event) => {
-        this.event = event;
-      },
-      error: (err) => {
-        this.errorMessage = 'Error fetching event details.';
-        console.error('Error fetching event:', err);
-      }
-    });
-  }
+  // fetchEvent(id: number) {
+  //   this.eventService.getEventById(id).subscribe({
+  //     next: (event) => {
+  //       this.event = event;
+  //     },
+  //     error: (err) => {
+  //       this.errorMessage = 'Error fetching event details.';
+  //       console.error('Error fetching event:', err);
+  //     }
+  //   });
+  // }
 
-  updateEvent() {
-    this.eventService.updateEvent(this.eventId, this.event).subscribe({
-      next: () => {
-        this.router.navigate(['/events']); // Navigate to events list page after successful update
-      },
-      error: (err) => {
-        this.errorMessage = 'Error updating event.';
-        console.error('Error updating event:', err);
-      }
-    });
-  }
+  // updateEvent() {
+  //   this.eventService.updateEvent(this.eventId, this.event).subscribe({
+  //     next: () => {
+  //       this.router.navigate(['/events']); // Navigate to events list page after successful update
+  //     },
+  //     error: (err) => {
+  //       this.errorMessage = 'Error updating event.';
+  //       console.error('Error updating event:', err);
+  //     }
+  //   });
+  // }
 }
