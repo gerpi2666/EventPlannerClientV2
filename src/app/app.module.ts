@@ -26,7 +26,6 @@ import { ServicesModule } from './services/services.module';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { RouterModule } from '@angular/router';
 import { EventModule } from './event/event.module'; 
-import { CreateComponent } from './Users/create/create.component';
 
 registerLocaleData(es);
 
@@ -34,7 +33,6 @@ registerLocaleData(es);
   declarations: [
     AppComponent,
     FullComponent,
-    CreateComponent,
 
   ],
   imports: [

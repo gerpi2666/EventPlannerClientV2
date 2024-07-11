@@ -34,7 +34,7 @@
             <div class="row">
 
                 <mat-form-field class="col-4">
-                    <mat-label>Unidad de medida</mat-label>
+                    <mat-label>Correo electronico</mat-label>
                     <input matInput formControlName="Email"  placeholder="Correo electronico">
                     <mat-error *ngIf="errorHandling('Email','required')">
                         El  Correo electronico es <strong>requerido</strong>
@@ -42,19 +42,22 @@
                 </mat-form-field>
 
                 <mat-form-field class="col-4">
-                    <mat-label>Choose a date</mat-label>
-                    <input matInput [matDatepicker]="picker">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-label>Fecha</mat-label>
+                    <input matInput type="date" id="ExpirationDate" formControlName="ExpirationDate">
+                    <mat-error *ngIf="errorHandling('ExpirationDate','required')">
+                        La fecha de vencimiento es <strong>requerida</strong>
+                    </mat-error>
+
                 </mat-form-field>
 
                 <mat-form-field class="col-4">
-                    <mat-label>Color</mat-label>
-                    <input type="color" matInput formControlName="Color" maxlength="20" placeholder="Color">
-                    <mat-error *ngIf="errorHandling('Color','required')">
-                        El Color es <strong>requerido</strong>
-                    </mat-error>
+                    <mat-label>Rol</mat-label>
+                    <select matNativeControl formControlName="Rol" required>
+                      <option value="1">Super administrador</option>
+                      <option value="2">Administrador</option>
+                      <option value="3">Cliente</option>
+                      <option value="4">Audi</option>
+                    </select>
                 </mat-form-field>
                 
             </div>
