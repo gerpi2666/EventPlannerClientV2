@@ -23,6 +23,7 @@ import { ComponentsModule } from './components/components.module';
 import { UserModule } from './user/user.module';
 import { ServicesModule } from './services/services.module';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
+import { CreateComponent } from './Users/create/create.component';
 
 registerLocaleData(es);
 
@@ -30,6 +31,7 @@ registerLocaleData(es);
   declarations: [
     AppComponent,
     FullComponent,
+    CreateComponent,
 
   ],
   imports: [

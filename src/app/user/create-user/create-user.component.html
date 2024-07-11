@@ -1,0 +1,75 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<form [formGroup]="formulario" enctype="multipart/form-data" style="min-height: 87.90vh; padding: 30px;">
+    <input type="hidden" formControlName="id"/>
+    <mat-card >
+        <mat-card-header class="container">
+            <h1>{{TitleForm}}</h1>
+        </mat-card-header>
+        <mat-card-content class="container">
+            <div class="row">
+                
+                 <mat-form-field class="col-12" >
+                    <mat-label>Nombre de usuario</mat-label>
+
+                        <input matInput formControlName="NombreUsuario" maxlength="20" placeholder="Nombre de usuario">
+                        <mat-error *ngIf="errorHandling('NombreUsuario','required')">
+                            Nombre de usuario es <strong>requerido</strong>
+                        </mat-error>
+                </mat-form-field>
+                          
+                <mat-form-field class="col-12" >
+                    <mat-label>Contraseña</mat-label>
+
+                    <input matInput type="password" formControlName="Password" maxlength="20" placeholder="Contraseña">
+                    <mat-error *ngIf="errorHandling('Password','required')">
+                        La Contraseña es <strong>requerida</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                
+            </div>
+
+            <div class="row">
+
+                <mat-form-field class="col-4">
+                    <mat-label>Unidad de medida</mat-label>
+                    <input matInput formControlName="Email"  placeholder="Correo electronico">
+                    <mat-error *ngIf="errorHandling('Email','required')">
+                        El  Correo electronico es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-4">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field class="col-4">
+                    <mat-label>Color</mat-label>
+                    <input type="color" matInput formControlName="Color" maxlength="20" placeholder="Color">
+                    <mat-error *ngIf="errorHandling('Color','required')">
+                        El Color es <strong>requerido</strong>
+                    </mat-error>
+                </mat-form-field>
+                
+            </div>
+
+           
+            
+        </mat-card-content>
+        <mat-card-actions  class="container" style="margin: 25px;">
+            <div class="btne">
+                <button style="width:400px;" mat-raised-button color="accent" (click)="submit()" >Guardar</button>
+            </div>
+            <div class="btne">
+                <button style="width:400px;" mat-raised-button color="warn" (click)="discard()" >Descartar</button>
+            </div>
+        </mat-card-actions>
+
+    </mat-card>
+</form>
