@@ -1,1 +1,22 @@
-<p>event-detail works!</p>
+<body>
+<h1 mat-dialog-title>Detalles del Evento</h1>
+<div mat-dialog-content>
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="event-image">
+        <img [src]="sanitizeImage(data.imagen)" alt="Event Image">
+      </div>
+      <mat-card-title>{{ data.descripcion }}</mat-card-title>
+      <mat-card-subtitle>{{ data.fecha | date: 'dd/MM/yyyy' }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p><strong>Descripción:</strong> {{ data.descripcion }}</p>
+      <p><strong>Fecha:</strong> {{ data.fecha | date: 'dd/MM/yyyy' }}</p>
+      <p><strong>Cupo:</strong> {{ data.cupo }}</p>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close color="primary">Cerrar</button>
+</div>
+</body>

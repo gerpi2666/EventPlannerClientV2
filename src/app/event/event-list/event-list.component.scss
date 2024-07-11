@@ -1,0 +1,30 @@
+.event-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center; /* Centra los elementos horizontalmente */
+}
+.event-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra horizontalmente dentro del contenedor */
+}
+
+.event-title {
+  text-align: center; /* Asegura que el título esté centrado */
+}
+
+.event-actions {
+  justify-content: center; /* Centra los botones horizontalmente */
+}
+
+.event-image {
+  width: 100%;
+  height: auto;
+  margin-top: 10px;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

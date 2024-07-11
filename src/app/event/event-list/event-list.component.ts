@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GenericService } from '../../services/generic.service';
 import { NotificacionService, TipoMessage } from 'src/app/services/notification.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EventDetailComponent } from '../event-detail/event-detail.component';
 
 @Component({
   selector: 'app-event-list',
@@ -12,7 +14,7 @@ export class EventListComponent implements OnInit {
   DatoAllEvent:any;
   dataSource: any;
 
-  constructor(private eventService: GenericService, private noti: NotificacionService) { }
+  constructor(private eventService: GenericService, private noti: NotificacionService, private dialog: MatDialog) { }
   ngOnInit(): void {
 
  
@@ -41,4 +43,12 @@ export class EventListComponent implements OnInit {
     // Remueve el prefijo 'data:image/jpeg;base64,' para obtener solo el contenido base64
     return `data:image/png;base64,${image}`;
   }
+
+  openDetailDialog(event: any): void {
+    const dialogRef = this.dialog.open(EventDetailComponent, {
+      width: '500px',
+      data: event
+    });
+  }
 }
+

@@ -44,17 +44,19 @@ export class FullComponent {
       icon: "home",
       menu: "Reset Password",
     },
+
+    {
+      link: "/events",
+      icon: "home",
+      menu: "Lista de eventos",
+    },
    
     {
       link: "/events/add",
       icon: "home",
       menu: "Agregar eventos",
     },
-    {
-      link: "/events",
-      icon: "home",
-      menu: "Lista de eventos",
-    },
+    
     {
       link: "/users",
       icon: "users",
