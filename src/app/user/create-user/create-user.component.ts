@@ -45,7 +45,7 @@ export class CreateUserComponent implements OnInit {
             this.UserInfo=call.data
             console.log('UserInfo', this.UserInfo)
             this.formulario.setValue({
-              Id: this.UserInfo.id,
+              id: this.UserInfo.id,
               Password: this.UserInfo.password,
               Email: this.UserInfo.email,
             
@@ -69,7 +69,7 @@ export class CreateUserComponent implements OnInit {
 
   reactiveForm(){
      this.formulario = this.fb.group({
-      Id: [null, null],
+      id: [null, null],
       Email: ['', [Validators.required, Validators.email]],
       Password: ['', Validators.required],
       ExpirationDate: ['', Validators.required],

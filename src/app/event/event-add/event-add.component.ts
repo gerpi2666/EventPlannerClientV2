@@ -119,8 +119,9 @@ export class EventAddComponent implements OnInit {
   addEvent(): void {
     this.submitted = true;
     if (this.eventForm.valid) {
-      const { descripcion, fecha, cupo, imagen } = this.eventForm.value;
-
+      const obj = this.eventForm.value;
+      obj.Id= this.Id;
+     
       if (!this.IsCreate) {
         const eventId = this.Id;
         this.eventService.updateEvent('/update', this.eventForm.value).subscribe({
@@ -153,6 +154,7 @@ export class EventAddComponent implements OnInit {
         this.eventService.addEvent(this.eventForm.value).subscribe({
           next: (response) => {
             this.snackBar.open('Evento creado correctamente', 'Cerrar', { duration: 5000 });
+           console.log('response create',response)
             if (response.statusCode == 400 || response.statusCode == 401 ) {
               this.noti.mensaje(
                 'Error',

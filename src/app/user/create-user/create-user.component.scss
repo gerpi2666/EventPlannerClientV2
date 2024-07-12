@@ -1,0 +1,24 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    button {
+        width: 300px;
+        margin: 0 10px 10px 10px;
+        color: white;
+    }
+
+    button[color="accent"] {
+        background-color: #0b488c;
+    }
+
+    button[color="warn"] {
+        background-color: red;
+    }
+
+    body {
+        margin: 0;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+      }
+}
