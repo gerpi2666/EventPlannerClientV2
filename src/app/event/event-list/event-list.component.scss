@@ -1,41 +1,43 @@
 .event-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center; /* Centra los elementos horizontalmente */
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1200px; /* Ajusta esto según tu necesidad */
 }
+
 .event-card {
+  flex: 0 1 23%; /* Aproximadamente 1/4 del contenedor, con algo de margen */
+  box-sizing: border-box;
+  margin-bottom: 20px; /* Espaciado entre filas */
+}
+
+.event-card mat-card-header {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centra horizontalmente dentro del contenedor */
+  align-items: center;
+  text-align: center;
 }
 
-.event-title {
-  text-align: center; /* Asegura que el título esté centrado */
-}
-
-.event-image {
-  width: 100%;
-  height: auto;
-  margin-top: 10px;
-}
-
-body {
+.event-card mat-card-title, 
+.event-card mat-card-subtitle {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
+.event-card img {
+  width: 100%;
+  height: 216.16px;
+  object-fit: cover; /* Esto asegura que la imagen se recorte si es necesario para llenar el espacio */
+}
+
 
 .event-details {
-  margin-bottom: 10px; /* Espacio entre la descripción y el pie de la tarjeta */
+  height: 100px; 
+  overflow: hidden;
+  margin-bottom: 20px; 
 }
 
-.event-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.event-description {
+  max-height: 80px;
+  overflow: hidden;
 }
-
-.event-actions {
-  justify-content: flex-end; /* Alinea los botones a la derecha */
-}
-
