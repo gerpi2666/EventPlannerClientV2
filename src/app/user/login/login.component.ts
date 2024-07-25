@@ -7,6 +7,7 @@ import {
   NotificacionService,
   TipoMessage,
 } from 'src/app/services/notification.service';
+import { Call } from '@angular/compiler';
 
 @Component({
   selector: 'app-login',
@@ -69,7 +70,12 @@ export class LoginComponent implements OnInit {
           }
 
           if (call.statusCode == 200) {
-            localStorage.setItem('currentUser', JSON.stringify(call.Data));
+            console.log('DATOS  call: ' ,  call);
+            localStorage.setItem('currentUser', JSON.stringify(call.data));
+
+ console.log('DATOS LOCAL STORAGE: ' ,   JSON.parse(localStorage.getItem('currentUser')));
+          
+         
 
             this.noti.mensaje(
               'Exito',

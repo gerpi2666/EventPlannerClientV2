@@ -1,0 +1,23 @@
+<h1 style=" margin: 55px;" routerLink="/events/add">
+  Eventos disponibles
+</h1>
+
+<div class="event-list">
+  <mat-card *ngFor="let event of dataSource" class="event-card">
+    <mat-card-header>
+      <mat-card-title>{{ event.name }}</mat-card-title>
+      <mat-card-subtitle>{{ event.fecha | date: 'dd/MM/yyyy' }}</mat-card-subtitle>
+    </mat-card-header>
+    <img [src]="sanitizeImage(event.imagen)" alt="{{ event.name }}">
+    <mat-card-content>
+      <div class="event-details">
+        <p class="event-description"><strong>Descripción:</strong> {{ event.descripcion }}</p>
+        <p><strong>Cupo:</strong> {{ event.cupo }}</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions class="event-actions">
+      <button mat-button color="primary" (click)="openDetailDialog(event)">Ver Detalles</button>
+      <button mat-button color="accent" (click)="registerEvent(event.id)">Suscribirse</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
