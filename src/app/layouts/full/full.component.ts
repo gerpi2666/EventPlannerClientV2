@@ -42,8 +42,14 @@ export class FullComponent {
      {
        link: "/events-users",
        icon: "home",
-      menu: "Eventos usuarios",
+      menu: "Eventos disponibles",
     },
+
+    {
+      link: "events-byUser",
+      icon: "home",
+     menu: "Eventos por usuarios",
+   },
 
     {
       link: "/events",

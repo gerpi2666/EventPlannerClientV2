@@ -16,8 +16,8 @@ export class EventListUserComponent implements OnInit {
   errorMessage: string = '';
   DatoAllEvent: any;
   dataSource: any;
-  events: any[] = [];
-  userId: any;
+  events: any;
+
 
   constructor(
     private eventService: GenericService,
@@ -65,10 +65,10 @@ export class EventListUserComponent implements OnInit {
             const activeEvents = this.DatoAllEvent.filter(event => event.activo);
   
             // Asignar la lista de eventos activos a dataSource
-            this.dataSource = activeEvents;
+            this.events = activeEvents;
   
             // Opcional: Imprimir datos para depuración
-            console.log('Datos de eventos activos:', this.dataSource);
+            console.log('Datos de eventos activos:', this.events);
           } else {
             this.noti.mensaje('Advertencia', 'No se encontraron eventos.', TipoMessage.warning);
           }

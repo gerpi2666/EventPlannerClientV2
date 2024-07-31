@@ -23,7 +23,7 @@ import { LoginComponent } from './user/login/login.component';
 import { ResetPasswordComponent } from './user/reset-password/reset-password.component';
 import { EventListComponent } from './event/event-list/event-list.component';
 import { EventAddComponent } from './event/event-add/event-add.component';
-import { EventEditComponent } from './event/event-edit/event-edit.component';
+import { EventByUserComponent } from './event/event-by-user/event-by-user.component';
 import { EventDetailComponent } from './event/event-detail/event-detail.component';
 import {EventListUserComponent  } from './event/event-list-user/event-list-user.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
@@ -56,6 +56,7 @@ const routes: Routes = [
       { path: 'users', component: IndexUserComponent },
       { path: 'events', component: EventListComponent },
       { path: 'events-users', component: EventListUserComponent  },
+      { path: 'events-byUser', component:  EventByUserComponent  },
       { path: 'events/add', component: EventAddComponent },
       { path: 'events/edit/:id', component: EventAddComponent },
       { path: 'events/:id', component: EventDetailComponent },

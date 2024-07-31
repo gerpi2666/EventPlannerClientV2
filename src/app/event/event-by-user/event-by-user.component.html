@@ -1,1 +1,25 @@
-<p>event-by-user works!</p>
+<div *ngIf="events.length === 0" class="no-events-message">
+  <p>No estás registrado en ningún evento.</p>
+</div>
+
+<!-- Lista de eventos -->
+<div *ngIf="events.length > 0" class="event-list">
+  <div *ngFor="let event of events" class="event-card">
+    <!-- Imagen en la parte superior -->
+    <div class="event-card-header">
+      <img [src]="sanitizeImage(event.imagen)" alt="{{ event.name }}" class="event-image">
+    </div>
+    
+    <!-- Contenido de la tarjeta -->
+    <div class="event-card-body">
+      <h2>{{ event.name }}</h2>
+      <p>Fecha: {{ event.fecha | date: 'dd/MM/yyyy' }}</p>
+      <p>{{ event.descripcion }}</p>
+    </div>
+    
+    <!-- Botón de desuscripción -->
+    <div class="event-card-footer">
+      <button mat-button color="primary" (click)="unsubscribeFromEvent(event.id)">Desuscribirse</button>
+    </div>
+  </div>
+</div>
