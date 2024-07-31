@@ -55,7 +55,7 @@ export class EventListUserComponent implements OnInit {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   
     if (currentUser && currentUser.id) {
-      this.eventService.getUserEvents(currentUser.id).subscribe({
+      this.eventService.getUserEvents(`/get-events-by-user?usertId=${currentUser.id}`).subscribe({
         next: (response) => {
           // Suponiendo que la respuesta tiene la estructura { data: Evento[] }
           if (response && response.data) {

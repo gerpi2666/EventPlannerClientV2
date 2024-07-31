@@ -9,9 +9,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class GenericService {
 
   // URL del API, definida en environments/environment.ts
-  urlAPI: string = 'https://localhost:44393/User';
+  urlAPI: string = 'https://localhost:7199/User';
 
-  private apiUrl = 'https://localhost:44393/Event'; // Cambia esto por tu URL real
+  private apiUrl = 'https://localhost:7199/Event'; // Cambia esto por tu URL real
 
   constructor(private http: HttpClient) {}
 
@@ -32,8 +32,8 @@ export class GenericService {
     return this.http.post<any>(`${this.apiUrl}/register-user?userId=${userId}&eventId=${eventId}`, null);
   }
 
-  getUserEvents(userId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/get-events-by-user?userId=${userId}`);
+  getUserEvents(endopoint: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}${endopoint}`);
   }
 
   
