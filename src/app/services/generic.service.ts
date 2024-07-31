@@ -24,13 +24,14 @@ export class GenericService {
     return this.http.get<any | any[]>(`${this.apiUrl}${endopoint}/${filtro}`);
   }
 
-
-  addEvent(objCreate: any | any): Observable<any> {
-    
+  addEvent(objCreate: any | any): Observable<any> { 
     return this.http.post<any | any[]>(`${this.apiUrl}/create-event`, objCreate);
-   
   }
 
+  registerEvent(userId: number, eventId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/register-user?userId=${userId}&eventId=${eventId}`, null);
+  }
+  
   updateEvent(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
     return this.http.post<any | any[]>(`${this.apiUrl}${endopoint}`, objUpdate);
   }

@@ -39,11 +39,11 @@ export class FullComponent {
     //   icon: "home",
     //   menu: "Login",
     // },
-    // {
-    //   link: "/reset-password",
-    //   icon: "home",
-    //   menu: "Reset Password",
-    // },
+     {
+       link: "/events-users",
+       icon: "home",
+      menu: "Eventos usuarios",
+    },
 
     {
       link: "/events",
