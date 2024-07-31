@@ -1,4 +1,4 @@
-<h1 style=" margin: 55px;" routerLink="/events/add">
+<h1 routerLink="/events/add" class="page-title">
   Eventos disponibles
 </h1>
 
@@ -8,7 +8,7 @@
       <mat-card-title>{{ event.name }}</mat-card-title>
       <mat-card-subtitle>{{ event.fecha | date: 'dd/MM/yyyy' }}</mat-card-subtitle>
     </mat-card-header>
-    <img [src]="sanitizeImage(event.imagen)" alt="{{ event.name }}">
+    <img [src]="sanitizeImage(event.imagen)" alt="{{ event.name }}" class="event-image">
     <mat-card-content>
       <div class="event-details">
         <p class="event-description"><strong>Descripción:</strong> {{ event.descripcion }}</p>
@@ -20,4 +20,17 @@
       <button mat-button color="accent" (click)="registerEvent(event.id)">Suscribirse</button>
     </mat-card-actions>
   </mat-card>
+</div>
+
+<div *ngIf="events.length === 0" class="no-events-message">
+  <p>No estás registrado en ningún evento.</p>
+</div>
+
+<!-- Opcionalmente, si deseas mostrar una lista adicional de eventos -->
+<div *ngIf="events.length > 0" class="additional-events-list">
+  <div *ngFor="let event of events" class="event-card2">
+    <h3>{{ event.name }}</h3>
+    <p>{{ event.descripcion }}</p>
+    <p>Fecha: {{ event.fecha | date }}</p>
+  </div>
 </div>

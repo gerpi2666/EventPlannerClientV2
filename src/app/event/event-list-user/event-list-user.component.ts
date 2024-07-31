@@ -16,6 +16,8 @@ export class EventListUserComponent implements OnInit {
   errorMessage: string = '';
   DatoAllEvent: any;
   dataSource: any;
+  events: any[] = [];
+  userId: any;
 
   constructor(
     private eventService: GenericService,
@@ -28,6 +30,8 @@ export class EventListUserComponent implements OnInit {
     this.ListEvents();
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(currentUser);
+
+    this.loadUserEvents();
   }
 
   ListEvents() {
@@ -47,34 +51,38 @@ export class EventListUserComponent implements OnInit {
     });
   }
 
-  deleteEvent(id: number) {
-    console.log('Id deleted', id);
-    this.eventService.deleteEvent(`/delete`, id).subscribe({
-      next: (call) => {
-        if (call.statusCode == 400 || call.statusCode == 401) {
-          this.noti.mensaje('Error', 'Evento no encontrado', TipoMessage.warning);
-          return;
+  loadUserEvents(): void {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  
+    if (currentUser && currentUser.id) {
+      this.eventService.getUserEvents(currentUser.id).subscribe({
+        next: (response) => {
+          // Suponiendo que la respuesta tiene la estructura { data: Evento[] }
+          if (response && response.data) {
+            this.DatoAllEvent = response.data;
+  
+            // Filtrar solo los eventos activos
+            const activeEvents = this.DatoAllEvent.filter(event => event.activo);
+  
+            // Asignar la lista de eventos activos a dataSource
+            this.dataSource = activeEvents;
+  
+            // Opcional: Imprimir datos para depuración
+            console.log('Datos de eventos activos:', this.dataSource);
+          } else {
+            this.noti.mensaje('Advertencia', 'No se encontraron eventos.', TipoMessage.warning);
+          }
+        },
+        error: () => {
+          this.noti.mensaje('Error', 'Error de conexión', TipoMessage.error);
         }
-
-        if (call.statusCode == 500) {
-          this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
-          return;
-        }
-
-        if (call.statusCode == 200) {
-          this.noti.mensaje('Exito', 'Evento eliminado con exito', TipoMessage.success);
-          window.location.reload(); 
-        }
-      },
-      error: () => {
-        this.noti.mensaje('Error', 'Error de conexion', TipoMessage.error);
-      },
-    });
+      });
+    } else {
+      this.noti.mensaje('Error', 'Usuario no autenticado', TipoMessage.warning);
+    }
   }
+  
 
-  updateEvent(id: number) {
-    this.router.navigate([`events/edit/${id}`]);
-  }
 
   sanitizeImage(image: string): string {
     return `data:image/jpeg;base64,${image}`;

@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { EventListUserComponent } from './event-list-user/event-list-user.component';
+import { EventByUserComponent } from './event-by-user/event-by-user.component';
 
 
 
@@ -31,7 +32,8 @@ import { EventListUserComponent } from './event-list-user/event-list-user.compon
     EventListComponent,
     EventEditComponent,
     EventDetailComponent,
-    EventListUserComponent
+    EventListUserComponent,
+    EventByUserComponent
   ],
   imports: [
     CommonModule,

@@ -31,6 +31,12 @@ export class GenericService {
   registerEvent(userId: number, eventId: number): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/register-user?userId=${userId}&eventId=${eventId}`, null);
   }
+
+  getUserEvents(userId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/get-events-by-user?userId=${userId}`);
+  }
+
+  
   
   updateEvent(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
     return this.http.post<any | any[]>(`${this.apiUrl}${endopoint}`, objUpdate);
