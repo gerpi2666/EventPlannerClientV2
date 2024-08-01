@@ -27,6 +27,7 @@ import { EventByUserComponent } from './event/event-by-user/event-by-user.compon
 import { EventDetailComponent } from './event/event-detail/event-detail.component';
 import {EventListUserComponent  } from './event/event-list-user/event-list-user.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -35,42 +36,42 @@ const routes: Routes = [
     path: '',
     component: FullComponent,
     children: [
-      { path: 'Dash', component: DashboardComponent },
-      { path: 'reset-password', component: ResetPasswordComponent },
-      { path: 'alerts', component: AlertsComponent },
-      { path: 'forms', component: FormsComponent },
-      { path: 'table', component: ProductComponent },
-      { path: 'grid-list', component: GridListComponent },
-      { path: 'menu', component: MenuComponent },
-      { path: 'tabs', component: TabsComponent },
-      { path: 'expansion', component: ExpansionComponent },
-      { path: 'chips', component: ChipsComponent },
-      { path: 'progress', component: ProgressComponent },
-      { path: 'toolbar', component: ToolbarComponent },
-      { path: 'progress-snipper', component: ProgressSnipperComponent },
-      { path: 'snackbar', component: SnackbarComponent },
-      { path: 'slider', component: SliderComponent },
-      { path: 'slide-toggle', component: SlideToggleComponent },
-      { path: 'tooltip', component: TooltipsComponent },
-      { path: 'button', component: ButtonsComponent },
-      { path: 'users', component: IndexUserComponent },
-      { path: 'events', component: EventListComponent },
-      { path: 'events-users', component: EventListUserComponent  },
-      { path: 'events-byUser', component:  EventByUserComponent  },
-      { path: 'events/add', component: EventAddComponent },
-      { path: 'events/edit/:id', component: EventAddComponent },
-      { path: 'events/:id', component: EventDetailComponent },
-      { path: 'users/create', component: CreateUserComponent },
-      { path: 'users/detail/:id', component: CreateUserComponent },
-      { path: 'users/edit/:id', component: CreateUserComponent }
+      { path: 'Dash', component: DashboardComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador', 'Administrador', 'Cliente'] } },
+      { path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador', 'Administrador', 'Cliente'] } },
+      { path: 'alerts', component: AlertsComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'forms', component: FormsComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'table', component: ProductComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'grid-list', component: GridListComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'menu', component: MenuComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'tabs', component: TabsComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'expansion', component: ExpansionComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'chips', component: ChipsComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'progress', component: ProgressComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'toolbar', component: ToolbarComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'progress-snipper', component: ProgressSnipperComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'snackbar', component: SnackbarComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'slider', component: SliderComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'slide-toggle', component: SlideToggleComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'tooltip', component: TooltipsComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'button', component: ButtonsComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'users', component: IndexUserComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador', 'Administrador'] } },
+      { path: 'events', component: EventListComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador', 'Cliente'] } },
+      { path: 'events-users', component: EventListUserComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador', 'Cliente'] } },
+      { path: 'events-byUser', component: EventByUserComponent, canActivate: [AuthGuard], data: { roles: [ 'Cliente'] } },
+      { path: 'events/add', component: EventAddComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'events/edit/:id', component: EventAddComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'events/:id', component: EventDetailComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador', 'Cliente'] } },
+      { path: 'users/create', component: CreateUserComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'users/detail/:id', component: CreateUserComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
+      { path: 'users/edit/:id', component: CreateUserComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } }
     ]
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
-
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [] // Asegúrate de incluir el guardia en los proveedores
 })
 export class AppRoutingModule { }

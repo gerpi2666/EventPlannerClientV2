@@ -31,7 +31,7 @@ export class EventListUserComponent implements OnInit {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     console.log(currentUser);
 
-    this.loadUserEvents();
+  
   }
 
   ListEvents() {
@@ -51,37 +51,6 @@ export class EventListUserComponent implements OnInit {
     });
   }
 
-  loadUserEvents(): void {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  
-    if (currentUser && currentUser.id) {
-      this.eventService.getUserEvents(`/get-events-by-user?usertId=${currentUser.id}`).subscribe({
-        next: (response) => {
-          // Suponiendo que la respuesta tiene la estructura { data: Evento[] }
-          if (response && response.data) {
-            this.DatoAllEvent = response.data;
-  
-            // Filtrar solo los eventos activos
-            const activeEvents = this.DatoAllEvent.filter(event => event.activo);
-  
-            // Asignar la lista de eventos activos a dataSource
-            this.events = activeEvents;
-  
-            // Opcional: Imprimir datos para depuración
-            console.log('Datos de eventos activos:', this.events);
-          } else {
-            this.noti.mensaje('Advertencia', 'No se encontraron eventos.', TipoMessage.warning);
-          }
-        },
-        error: () => {
-          this.noti.mensaje('Error', 'Error de conexión', TipoMessage.error);
-        }
-      });
-    } else {
-      this.noti.mensaje('Error', 'Usuario no autenticado', TipoMessage.warning);
-    }
-  }
-  
 
 
   sanitizeImage(image: string): string {

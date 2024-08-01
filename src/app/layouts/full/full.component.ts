@@ -1,12 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { AuthService } from '../../services/Auth.service'; // Asegúrate de tener la ruta correcta
+import { Router } from '@angular/router';
 
-interface sidebarMenu {
+interface SidebarMenu {
   link: string;
   icon: string;
   menu: string;
+  roles: string[]; // Añade un campo roles para especificar los roles que pueden ver esta opción
 }
 
 @Component({
@@ -14,146 +17,84 @@ interface sidebarMenu {
   templateUrl: './full.component.html',
   styleUrls: ['./full.component.scss']
 })
-export class FullComponent {
-
+export class FullComponent implements OnInit {
+  userName: string = '';
   search: boolean = false;
-
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) { }
-
   routerActive: string = "activelink";
+  currentUserRole: string;
 
-  sidebarMenu: sidebarMenu[] = [
+  constructor(
+    private router: Router,
+    private breakpointObserver: BreakpointObserver,
+    private authService: AuthService
+  ) { }
+
+  
+  sidebarMenu: SidebarMenu[] = [
     {
       link: "/Dash",
       icon: "home",
       menu: "Dashboard",
+      roles: ['SuperAdministrador', 'Administrador']
     },
-    // {
-    //   link: "/login",
-    //   icon: "home",
-    //   menu: "Login",
-    // },
-     {
-       link: "/events-users",
-       icon: "home",
-      menu: "Eventos disponibles",
-    },
-
     {
-      link: "events-byUser",
+      link: "/events-users",
       icon: "home",
-     menu: "Eventos por usuarios",
-   },
-
+      menu: "Eventos disponibles",
+      roles: [ 'Cliente']
+    },
+    {
+      link: "/events-byUser",
+      icon: "home",
+      menu: "Eventos por usuarios",
+      roles: ['Cliente']
+    },
     {
       link: "/events",
       icon: "file-text",
       menu: "Lista de eventos",
+      roles: ['SuperAdministrador', 'Administrador']
     },
-   
-    // {
-    //   link: "/events/add",
-    //   icon: "home",
-    //   menu: "Agregar eventos",
-    // },
-    
     {
       link: "/users",
       icon: "users",
       menu: "Usuarios",
+      roles: ['SuperAdministrador', 'Administrador']
     },
+    // Añade más elementos del menú según sea necesario
+  ];
 
-    // {
-    //   link: "/users/create",
-    //   icon: "home",
-    //   menu: "User create",
-    // },
-    // {
-    //   link: "/button",
-    //   icon: "disc",
-    //   menu: "Buttons",
-    // },
-    // {
-    //   link: "/forms",
-    //   icon: "layout",
-    //   menu: "Forms",
-    // },
-    // {
-    //   link: "/alerts",
-    //   icon: "info",
-    //   menu: "Alerts",
-    // },
-    // {
-    //   link: "/grid-list",
-    //   icon: "file-text",
-    //   menu: "Grid List",
-    // },
-    // {
-    //   link: "/menu",
-    //   icon: "menu",
-    //   menu: "Menus",
-    // },
-    // {
-    //   link: "/table",
-    //   icon: "grid",
-    //   menu: "Tables",
-    // },
-    // {
-    //   link: "/expansion",
-    //   icon: "divide-circle",
-    //   menu: "Expansion Panel",
-    // },
-    // {
-    //   link: "/chips",
-    //   icon: "award",
-    //   menu: "Chips",
-    // },
-    // {
-    //   link: "/tabs",
-    //   icon: "list",
-    //   menu: "Tabs",
-    // },
-    // {
-    //   link: "/progress",
-    //   icon: "bar-chart-2",
-    //   menu: "Progress Bar",
-    // },
-    // {
-    //   link: "/toolbar",
-    //   icon: "voicemail",
-    //   menu: "Toolbar",
-    // },
-    // {
-    //   link: "/progress-snipper",
-    //   icon: "loader",
-    //   menu: "Progress Snipper",
-    // },
-    // {
-    //   link: "/tooltip",
-    //   icon: "bell",
-    //   menu: "Tooltip",
-    // },
-    // {
-    //   link: "/snackbar",
-    //   icon: "slack",
-    //   menu: "Snackbar",
-    // },
-    // {
-    //   link: "/slider",
-    //   icon: "sliders",
-    //   menu: "Slider",
-    // },
-    // {
-    //   link: "/slide-toggle",
-    //   icon: "layers",
-    //   menu: "Slide Toggle",
-    // },
-  ]
+  ngOnInit() {
+    const currentUser = this.authService.getCurrentUser();
+    this.currentUserRole = currentUser ? currentUser.rolDescripcion : '';
+    this.filterMenuByRole();
+    this.getUserName();
+  }
 
+  filterMenuByRole() {
+    this.sidebarMenu = this.sidebarMenu.filter(menuItem => menuItem.roles.includes(this.currentUserRole));
+  }
+
+  getUserName() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.userName = currentUser.nombreUsuario || 'Invitado'; // Cambia 'nombreUsuario' según la propiedad real
+  }
+
+  redirectToResetPassword() {
+    this.router.navigate(['/reset-password']);
+  }
+
+  logout() {
+    // Elimina la información del usuario actual de localStorage o cualquier otro almacenamiento
+    localStorage.removeItem('currentUser');
+    
+    // Redirige al usuario a la página de login
+    this.router.navigate(['/login']);
+  }
 }

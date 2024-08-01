@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./event-by-user.component.scss']
 })
 export class EventByUserComponent {
-  events: any;
+  events: any[] = []; 
   DatoAllEvent: any;
 
   

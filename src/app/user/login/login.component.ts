@@ -72,8 +72,6 @@ export class LoginComponent implements OnInit {
           if (call.statusCode == 200) {
             console.log('DATOS  call: ' ,  call);
             localStorage.setItem('currentUser', JSON.stringify(call.data));
-
- console.log('DATOS LOCAL STORAGE: ' ,   JSON.parse(localStorage.getItem('currentUser')));
           
          
 

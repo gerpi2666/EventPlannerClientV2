@@ -1,29 +1,26 @@
-import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { AuthService } from './Auth.service';
 import { NotificacionService, TipoMessage } from './notification.service';
-import { inject } from '@angular/core';
 
-export class UserGuard {
-  router: Router = inject(Router);
-  noti: NotificacionService = inject(NotificacionService);
-  auth: boolean = false;
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private noti: NotificacionService
+  ) {}
 
-  currentUser: any;
-  constructor() {
-    //Subscripción a la información del usuario actual
-    //this.authService.decodeToken.subscribe((user) => (this.currentUser = user));
-    this.currentUser= JSON.parse(localStorage.getItem('refreshTokenCurrent'))
-}
-  checkUserLogin(route: ActivatedRouteSnapshot): boolean {
-    if (this.auth) {
-      const userRole = this.currentUser.rol;
-      //roles.length && roles.indexOf(verify.role)===-1
-      if (
-        route.data['roles'].length &&
-        !route.data['roles'].includes(userRole)
-      ) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const requiredRoles = route.data['roles'] as Array<string>;
+
+    if (this.authService.isAuthenticated()) {
+      if (requiredRoles && requiredRoles.length && !this.authService.hasRole(requiredRoles)) {
         this.noti.mensajeRedirect(
           'Usuario',
-          `Usuario Sin permisos para acceder`,
+          `Usuario sin permisos para acceder`,
           TipoMessage.warning,
           '/Dash'
         );
@@ -32,16 +29,14 @@ export class UserGuard {
       }
       return true;
     }
+
     this.noti.mensajeRedirect(
       'Usuario',
-      `Usuario No autenticado`,
+      `Usuario no autenticado`,
       TipoMessage.warning,
-      '/usuario/login'
+      '/login'
     );
+    this.router.navigate(['/login']);
     return false;
   }
 }
-export const authGuard: CanActivateFn = (route, state) => {
-  let userGuard = new UserGuard();
-  return userGuard.checkUserLogin(route);
-};
