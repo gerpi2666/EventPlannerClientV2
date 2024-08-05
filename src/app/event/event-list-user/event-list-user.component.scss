@@ -14,8 +14,8 @@
   }
   
   .event-actions {
-    display: flex;
-    justify-content: center;
+ 
+    justify-content: space-between;
   }
   
   .event-card mat-card-header {
@@ -37,9 +37,9 @@
   }
   
   .event-details {
-    height: 100px; 
+
     overflow: hidden;
-    margin-bottom: 20px; 
+
   }
   
   .event-description {
@@ -54,7 +54,62 @@
   }
   
   .event-card {
-    width: 200px; /* Ajusta el ancho de la tarjeta según tus necesidades */
+    width: 300px; /* Ajusta el ancho de la tarjeta según tus necesidades */
     margin: 20px; /* Ajusta el margen entre tarjetas según tus necesidades */
+  }
+  
+
+  .page-title {
+    color: #07305d; /* Color del título */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+
+
+  
+  .event-card {
+    width: 300px;
+    margin-bottom: 20px;
+   /* Borde del evento */
+  }
+  
+  .event-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .event-details {
+    background-color: #ffffff; /* Fondo de los detalles del evento */
+  }
+  
+  .event-description {
+    color: #07305d; /* Color de la descripción del evento */
+  }
+  
+
+  
+  .primary-button {
+    background-color: #eaa159; /* Color del botón primario */
+    color: #ffffff;
+  }
+  
+  .primary-button:hover {
+    background-color: #f0bb86; /* Color del botón primario al pasar el cursor */
+  }
+  
+  .accent-button {
+    background-color: #0b488c; /* Color del botón de acento */
+    color: #ffffff;
+  }
+  
+  .accent-button:hover {
+    background-color: #07305d; /* Color del botón de acento al pasar el cursor */
+  }
+
+  .primary-button, .accent-button {
+    border-radius: 50px; /* Hacer que los botones sean redondos */
+    padding: 10px 20px;
+    text-transform: none;
   }
   

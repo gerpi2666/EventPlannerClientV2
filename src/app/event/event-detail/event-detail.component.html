@@ -1,19 +1,16 @@
-<h1 mat-dialog-title>Detalles del Evento</h1>
-<div mat-dialog-content class="dialog-content">
-  <mat-card class="custom-card">
-    <mat-card-header>
-      <div mat-card-avatar class="event-image">
-        <img [src]="sanitizeImage(data.imagen)" alt="Event Image">
-      </div>
-      <mat-card-title>{{ data.name }}</mat-card-title>
-    </mat-card-header>
+<div [ngStyle]="{'background-image': 'url(' + sanitizeImage(data.imagen) + ')'}" class="dialog-background">
+  <!-- Botón de cerrar fuera del contenido, en la parte superior derecha -->
+  <button mat-icon-button mat-dialog-close color="primary" class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <div mat-dialog-content class="dialog-content">
+    <h2 class="dialog-title">Detalles del evento</h2>
     <mat-card-content>
-      <p><strong>Descripción:</strong> {{ data.descripcion }}</p>
-      <p><strong>Fecha:</strong> {{ data.fecha | date: 'dd/MM/yyyy' }}</p>
-      <p><strong>Cupo:</strong> {{ data.cupo }}</p>
+      <p class="event-text"><strong>Nombre:</strong> {{ data.name }}</p>
+      <p class="event-text"><strong>Descripción:</strong> {{ data.descripcion }}</p>
+      <p class="event-text"><strong>Fecha:</strong> {{ data.fecha | date: 'dd/MM/yyyy' }}</p>
+      <p class="event-text"><strong>Cupo:</strong> {{ data.cupo }}</p>
     </mat-card-content>
-  </mat-card>
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close color="primary">Cerrar</button>
+  </div>
 </div>

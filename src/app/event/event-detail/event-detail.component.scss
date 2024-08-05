@@ -1,30 +1,62 @@
-.event-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 16px;
-}
-
-.custom-card {
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); 
-  display: flex; 
-}
-
-.custom-card mat-card-header {
+/* Estilo para el fondo del diálogo */
+.dialog-background {
+  background-size: cover; /* Asegura que la imagen cubra todo el fondo */
+  background-position: center; /* Centra la imagen de fondo */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  padding: 20px; /* Espacio alrededor del contenido */
   display: flex;
-  align-items: center; 
+  flex-direction: column;
+  height: 100%;
+  position: relative;
 }
 
-.custom-card .event-image {
-  margin-right: 24px; 
+/* Estilo para el botón de cerrar */
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para el botón */
+  border-radius: 50%; /* Bordes redondeados para el botón */
+  width: 40px; /* Tamaño del botón */
+  height: 40px; /* Tamaño del botón */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.499); /* Sombra para profundidad */
+  z-index: 2; /* Asegura que el botón esté sobre otros elementos */
 }
 
+/* Estilo para el ícono del botón de cerrar */
+.close-button mat-icon {
+  color: #07305d; /* Color del ícono */
+  font-size: 24px; /* Tamaño del ícono */
+}
+
+/* Estilo para el botón de cerrar al pasar el cursor */
+.close-button:hover {
+  background-color: #e4872c; /* Color de fondo al pasar el cursor */
+  color: #ffffff; /* Color del ícono al pasar el cursor */
+}
+
+/* Estilo para el contenido del diálogo */
 .dialog-content {
-  padding: 24px;
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente para el contenido */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para profundidad */
+  position: relative;
+  z-index: 1;
 }
 
-body {
+.dialog-title {
+  text-align: center; /* Centra el texto horizontalmente */
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  padding: 10px 0; /* Espacio alrededor del texto */
+}
+
+/* Estilo para el texto del contenido de la tarjeta */
+.event-text {
+  color: #333333; /* Color gris oscuro para el texto */
+  font-size: 1em;
+  margin: 10px 0;
 }

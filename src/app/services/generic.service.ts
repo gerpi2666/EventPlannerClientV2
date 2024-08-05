@@ -41,7 +41,9 @@ export class GenericService {
   }
 
 
-  
+  getEventAttendanceStatistics(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/GetEventAttendanceStatistics`);
+  }
   
   updateEvent(endopoint: string, objUpdate: any | any): Observable<any | any[]> {
     return this.http.post<any | any[]>(`${this.apiUrl}${endopoint}`, objUpdate);

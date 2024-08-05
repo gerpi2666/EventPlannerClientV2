@@ -1,14 +1,60 @@
-<mat-card>
-  <mat-card-content>
-    <h4 class="mb-32">Sales Overview</h4>
+<div>
+  <mat-card>
+  <h4 class="mb-32 mt-32 text-center">Resumen de asistencia a eventos</h4>
 
-    <div class="max-width">
-      <apx-chart [series]="activeusercardChartOptions.series" [dataLabels]="activeusercardChartOptions.dataLabels"
-        [chart]="activeusercardChartOptions.chart" [legend]="activeusercardChartOptions.legend"
-        [xaxis]="activeusercardChartOptions.xaxis" [grid]="activeusercardChartOptions.grid"
-        [stroke]="activeusercardChartOptions.stroke" [tooltip]="activeusercardChartOptions.tooltip"
-        [plotOptions]="activeusercardChartOptions.plotOptions">
-      </apx-chart>
-    </div>
-  </mat-card-content>
+  <!-- Contenedor para el gráfico de barras -->
+  <div class="chart-container">
+    <apx-chart
+      [series]="activeusercardChartOptions.series"
+      [dataLabels]="activeusercardChartOptions.dataLabels"
+      [chart]="activeusercardChartOptions.chart"
+      [legend]="activeusercardChartOptions.legend"
+      [xaxis]="activeusercardChartOptions.xaxis"
+      [grid]="activeusercardChartOptions.grid"
+      [stroke]="activeusercardChartOptions.stroke"
+      [tooltip]="activeusercardChartOptions.tooltip"
+      [plotOptions]="activeusercardChartOptions.plotOptions">
+    </apx-chart>
+
+  </div>
+
 </mat-card>
+</div>
+
+
+  <!-- Contenedor para el gráfico de pastel -->
+  <div class="pie-chart-container">
+    <mat-card>
+      <mat-card-content>
+        <h4 class="text-center">
+          Porcentaje de asistencia a {{ selectedEvent?.eventName || 'Select an Event' }}
+        </h4>
+        
+        <!-- Combo box para seleccionar el evento -->
+        <mat-form-field appearance="fill" class="fixed-size">
+          <mat-label>Filtrar evento</mat-label>
+         
+        
+          <mat-select (selectionChange)="selectEvent($event.value)">
+            <mat-option *ngFor="let event of eventDetails" [value]="event">
+              {{ event.eventName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Gráfico de pastel para mostrar porcentajes de asistencia y no asistencia -->
+        <apx-chart
+          *ngIf="pieChartOptions"
+          [series]="pieChartOptions.series"
+          [chart]="pieChartOptions.chart"
+          [labels]="pieChartOptions.labels"
+          [colors]="pieChartOptions.colors"
+          [legend]="pieChartOptions.legend"
+          [tooltip]="pieChartOptions.tooltip"
+          [responsive]="pieChartOptions.responsive"
+          #pieChart
+        ></apx-chart>
+      </mat-card-content>
+    </mat-card>
+  </div>
+

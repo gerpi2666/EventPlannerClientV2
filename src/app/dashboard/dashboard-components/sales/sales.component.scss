@@ -1,3 +1,47 @@
 .max-width {
     max-width: 1400px;
 }
+
+.fixed-size {
+    width: 300px; /* Ajusta el tamaño según tus necesidades */
+  }
+  
+  mat-form-field {
+    width: 100%;
+  }
+
+  
+  /* Estilo para el combo box con tamaño fijo */
+.fixed-size {
+    width: 200px; /* Ajusta el tamaño según tus necesidades */
+  }
+  
+  /* Estilo para el campo del formulario para usar el ancho completo */
+  mat-form-field {
+    width: 100%;
+  }
+  
+  /* Estilo para el título del gráfico de pastel */
+  h4 {
+    color: #07305d; /* Ajusta el color del título */
+  }
+  
+  /* Personalización de los colores del gráfico de pastel */
+  .apexcharts-canvas {
+    background-color: #ffffff; /* Fondo del área del gráfico */
+  }
+  
+  .apexcharts-tooltip {
+    background: #07305d; /* Fondo del tooltip del gráfico */
+    color: #ffffff; /* Color del texto del tooltip */
+  }
+  
+  /* Personalización de la paleta de colores del gráfico de pastel */
+  .pie-chart {
+    background-color: #ffffff;
+  }
+  
+
+  .text-center {
+    text-align: center;
+  }
