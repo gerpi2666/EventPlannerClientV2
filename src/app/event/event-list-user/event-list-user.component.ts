@@ -17,25 +17,27 @@ export class EventListUserComponent implements OnInit {
   DatoAllEvent: any;
   dataSource: any;
   events: any;
+  CurrentUser: any
 
 
   constructor(
     private eventService: GenericService,
     private noti: NotificacionService,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     this.ListEvents();
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.CurrentUser= currentUser;
     console.log(currentUser);
 
   
   }
 
   ListEvents() {
-    this.eventService.getEvents('/List').subscribe({
+    this.eventService.get('/ListCustomer', this.CurrentUser.id).subscribe({
       next: (call) => {
         this.DatoAllEvent = call.data;
         this.DatoAllEvent.forEach((element) => {
@@ -69,6 +71,7 @@ export class EventListUserComponent implements OnInit {
       }
     });
   }
+
   registerEvent(id: number): void {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (currentUser && currentUser.id) {

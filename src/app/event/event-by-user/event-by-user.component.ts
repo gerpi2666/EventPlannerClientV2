@@ -69,7 +69,7 @@ export class EventByUserComponent {
     if (currentUser && currentUser.id) {
       this.eventService.unregisterEvent(currentUser.id, eventId).subscribe({
         next: (message: string) => {
-          this.noti.mensaje('Desuscripción exitosa', message, TipoMessage.success);
+          this.noti.mensaje('Exito','Se ha cancelado su suscripción', TipoMessage.success);
           this.loadUserEvents(); // Recargar los eventos del usuario
         },
         error: (error: any) => {

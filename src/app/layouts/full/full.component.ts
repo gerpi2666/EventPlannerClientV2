@@ -41,7 +41,7 @@ export class FullComponent implements OnInit {
       link: "/Dash",
       icon: "home",
       menu: "Dashboard",
-      roles: ['SuperAdministrador', 'Administrador']
+      roles: ['SuperAdministrador', 'Administrador'] 
     },
     {
       link: "/events-users",
@@ -73,6 +73,7 @@ export class FullComponent implements OnInit {
   ngOnInit() {
     const currentUser = this.authService.getCurrentUser();
     this.currentUserRole = currentUser ? currentUser.rolDescripcion : '';
+    console.log('UserRole',this.currentUserRole)
     this.filterMenuByRole();
     this.getUserName();
   }

@@ -47,9 +47,8 @@
                     <mat-label>Rol</mat-label>
                     <select matNativeControl formControlName="Rol" required>
                         <option value="1">Super administrador</option>
-                        <option value="2">Administrador</option>
-                        <option value="3">Cliente</option>
-                        <option value="4">Audi</option>
+                        <option value="3">Administrador</option>
+                        <option value="2">Cliente</option>
                     </select>
                     <mat-error *ngIf="errorHandling('Rol','required')">
                         El rol de usuario es <strong>requerido</strong>

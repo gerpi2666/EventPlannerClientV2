@@ -24,7 +24,7 @@ export class AuthGuard implements CanActivate {
           TipoMessage.warning,
           '/Dash'
         );
-        this.router.navigate(['/Dash']);
+        //this.router.navigate(['/Dash']);
         return false;
       }
       return true;

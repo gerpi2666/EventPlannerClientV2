@@ -158,7 +158,7 @@ export class EventAddComponent implements OnInit {
             if (response.statusCode == 400 || response.statusCode == 401 ) {
               this.noti.mensaje(
                 'Error',
-                'Usuario no encontrado',
+                response.message,
                 TipoMessage.warning
               );
               return;

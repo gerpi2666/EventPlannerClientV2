@@ -80,7 +80,13 @@ export class LoginComponent implements OnInit {
               'Credenciales Correctas',
               TipoMessage.success
             );
-            this.router.navigate(['/Dash']);
+            if(call.data.rol==2){
+              this.router.navigate(['/events-byUser']);
+
+            }else{
+              this.router.navigate(['/Dash']);
+
+            }
           }
         },
         error: () => {
