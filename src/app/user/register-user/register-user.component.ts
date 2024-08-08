@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { GenericService } from 'src/app/services/generic.service';
 import { NotificacionService, TipoMessage } from 'src/app/services/notification.service';
 
@@ -22,7 +22,6 @@ export class RegisterUserComponent implements OnInit {
     private fb: FormBuilder,
     private gService: GenericService,
     private router: Router,
-    private activeRouter: ActivatedRoute,
     private noti: NotificacionService
   ) {
     this.reactiveForm();
@@ -76,6 +75,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   submit() {
+    //console.log('Valor del formulario',this.formulario.value)
     if (this.formulario.invalid) {
       return;
     }
