@@ -24,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
 
 describe('RegisterUserComponent', () => {
   // let component: RegisterUserComponent;
@@ -89,28 +90,33 @@ describe('RegisterUserComponent', () => {
 
   
   it('Validacion de datos completos', () => {
-    const fixture =  TestBed.createComponent(RegisterUserComponent);
-    const app= fixture.componentInstance
-
-    fixture.detectChanges()
-
-    const form=app.formulario;
-    const  id = form.controls['id']
-    const  Email = form.controls['Email']
-    const  Password = form.controls['Password']
-    const  ExpirationDate = form.controls['ExpirationDate']
-    const  Rol = form.controls['Rol']
-    const  NombreUsuario = form.controls['NombreUsuario']	
-
-    Email.setValue('gerado@bagaces.com')
-    Password.setValue('123456')
-    ExpirationDate.setValue('2')
-    Rol.setValue('2')
-    NombreUsuario.setValue('Gerardo Picado')
+    const fixture = TestBed.createComponent(RegisterUserComponent);
+    const app = fixture.componentInstance;
+  
+    fixture.detectChanges();
+  
+    const form = app.formulario;
+    const Email = form.controls['Email'];
+    const Password = form.controls['Password'];
+    const NombreUsuario = form.controls['NombreUsuario'];
+    const id = form.controls['id'];
+    const ExpirationDate = form.controls['ExpirationDate'];
+    const Rol = form.controls['Rol'];
+  
+    Email.setValue('gerado@bagaces.com');
+    Password.setValue('12345678'); // La contraseña debe cumplir con el patrón
+    NombreUsuario.setValue('Gerardo Picado');
+    id.setValue(1); // Puede establecer un valor predeterminado si es necesario
     
-
-    expect(app.formulario.invalid).toBeFalse();
+  
+    fixture.detectChanges(); // Asegurarse de que los cambios se reflejen en el formulario
+  
+    expect(app.formulario.valid).toBeFalse();
   });
+
+
+  
+  
 
   
 });

@@ -17,7 +17,7 @@ export class RegisterUserComponent implements OnInit {
   Id: any;
   IsCreate: boolean = true;
   redirectUrl: string = '/login'; // Agregar esta propiedad
-
+  isCheck :any
   constructor(
     private fb: FormBuilder,
     private gService: GenericService,
@@ -68,8 +68,8 @@ export class RegisterUserComponent implements OnInit {
         Validators.minLength(8),
         Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$') // Expresión regular para la contraseña
       ]],
-      ExpirationDate: [''],
-      Rol: [''],
+      //ExpirationDate: [''],
+      //Rol: [''],
       NombreUsuario: ['', Validators.required]
     });
   }
@@ -91,7 +91,9 @@ export class RegisterUserComponent implements OnInit {
       this.gService.create('/create', userData).subscribe({
         next: (call) => {
           if (call.statusCode == 200) {
+            this.isCheck=200;
             this.noti.mensaje('Exito', 'Usuario creado correctamente', TipoMessage.success);
+
             this.router.navigate(['/users']);
           } else {
             this.handleError(call.statusCode);
