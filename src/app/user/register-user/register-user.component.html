@@ -1,60 +1,75 @@
 <body>
-    <form [formGroup]="formulario" enctype="multipart/form-data" (ngSubmit)="submit()">
-      <a mat-flat-button [href]="redirectUrl" style="background-color: #0b488c; margin-bottom: 55px;">
-        <mat-icon>arrow_back</mat-icon>
-      </a>
-      <input type="hidden" formControlName="id" />
-  
-      <div class="card-container">
-        <mat-card>
-          <mat-card-header>
-            <h1>{{TitleForm}}</h1>
-          </mat-card-header>
-          <mat-card-content>
-            <div class="row">
-              <mat-form-field class="col-12">
-                <mat-label>Nombre de usuario</mat-label>
-                <input matInput formControlName="NombreUsuario" maxlength="20" placeholder="Nombre de usuario">
-                <mat-error *ngIf="formulario.get('NombreUsuario').touched && formulario.get('NombreUsuario').hasError('required')">
-                  Nombre de usuario es <strong>requerido</strong>
-                </mat-error>
-              </mat-form-field>
-  
-              <mat-form-field class="col-12">
-                <mat-label>Contraseña</mat-label>
-                <input matInput type="password" formControlName="Password" maxlength="20" placeholder="Contraseña">
-                <mat-error *ngIf="formulario.get('Password').touched && formulario.get('Password').hasError('required')">
-                  La Contraseña es <strong>requerida</strong>
-                </mat-error>
-                <mat-error *ngIf="formulario.get('Password').touched && formulario.get('Password').hasError('minlength')">
-                  La Contraseña debe tener al menos 8 caracteres
-                </mat-error>
-                <mat-error *ngIf="formulario.get('Password').touched && formulario.get('Password').hasError('pattern')">
-                  La Contraseña debe contener al menos una mayúscula, un número y un carácter especial
-                </mat-error>
-              </mat-form-field>
-            </div>
-  
-            <div class="row">
-              <mat-form-field class="col-12">
-                <mat-label>Correo electronico</mat-label>
-                <input matInput formControlName="Email" placeholder="Correo electronico">
-                <mat-error *ngIf="formulario.get('Email').touched && formulario.get('Email').hasError('required')">
-                  Correo electrónico es <strong>requerido</strong>
-                </mat-error>
-                <mat-error *ngIf="formulario.get('Email').touched && formulario.get('Email').hasError('email')">
-                  Correo electrónico no es válido
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </mat-card-content>
-  
-          <mat-card-actions class="button-container">
-            <button mat-raised-button color="accent" type="submit">Guardar</button>
-            <button mat-raised-button color="warn" type="button" (click)="discard()">Descartar</button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </form>
-  </body>
-  
+  <form [formGroup]="formulario" (ngSubmit)="submit()">
+    <a mat-flat-button [href]="redirectUrl" style="background-color: #0b488c; margin-bottom: 55px;">
+      <mat-icon>arrow_back</mat-icon>
+    </a>
+    <input type="hidden" formControlName="id" />
+
+    <div class="card-container">
+      <mat-card>
+        <mat-card-header>
+          <h1>{{TitleForm}}</h1>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <mat-form-field class="col-12">
+              <mat-label>Nombre de usuario</mat-label>
+              <input matInput formControlName="NombreUsuario" maxlength="20" placeholder="Nombre de usuario">
+              <mat-error *ngIf="formulario.get('NombreUsuario').touched && formulario.get('NombreUsuario').hasError('required')">
+                Nombre de usuario es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-12">
+              <mat-label>Contraseña</mat-label>
+              <input matInput type="password" formControlName="Password" maxlength="20" placeholder="Contraseña" (focus)="onPasswordFocus()">
+              <mat-error *ngIf="formulario.get('Password').touched && formulario.get('Password').hasError('required')">
+                La Contraseña es <strong>requerida</strong>
+              </mat-error>
+              <mat-error *ngIf="formulario.get('Password').touched && formulario.get('Password').hasError('minlength')">
+                La Contraseña debe tener al menos 8 caracteres
+              </mat-error>
+              <mat-error *ngIf="formulario.get('Password').touched && formulario.get('Password').hasError('pattern')">
+                La Contraseña debe contener al menos una mayúscula, un número y un carácter especial
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row" *ngIf="showConfirmPassword">
+            <mat-form-field class="col-12">
+              <mat-label>Confirmar contraseña</mat-label>
+              <input matInput type="password" formControlName="confirmPassword" maxlength="20" placeholder="Confirmar contraseña">
+              <mat-error *ngIf="formulario.get('confirmPassword').touched && formulario.get('confirmPassword').hasError('required')">
+                Confirmar contraseña es <strong>requerida</strong>
+              </mat-error>
+              <mat-error *ngIf="formulario.get('confirmPassword').touched && formulario.get('confirmPassword').hasError('minlength')">
+                Confirmar contraseña debe tener al menos 8 caracteres.
+              </mat-error>
+              <mat-error *ngIf="formulario.get('confirmPassword').touched && formulario.get('confirmPassword').hasError('passwordMismatch')">
+                Las contraseñas no coinciden.
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="row">
+            <mat-form-field class="col-12">
+              <mat-label>Correo electronico</mat-label>
+              <input matInput formControlName="Email" placeholder="Correo electronico">
+              <mat-error *ngIf="formulario.get('Email').touched && formulario.get('Email').hasError('required')">
+                Correo electrónico es <strong>requerido</strong>
+              </mat-error>
+              <mat-error *ngIf="formulario.get('Email').touched && formulario.get('Email').hasError('email')">
+                Correo electrónico no es válido
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions class="button-container">
+          <button mat-raised-button color="accent" type="submit">Guardar</button>
+          <button mat-raised-button color="warn" type="button" (click)="discard()">Descartar</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </form>
+</body>

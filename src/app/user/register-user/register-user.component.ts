@@ -17,6 +17,7 @@ export class RegisterUserComponent implements OnInit {
   Id: any;
   IsCreate: boolean = true;
   redirectUrl: string = '/login'; // Agregar esta propiedad
+  showConfirmPassword: boolean = false; // Para controlar la visibilidad del campo confirmPassword
 
   constructor(
     private fb: FormBuilder,
@@ -42,12 +43,15 @@ export class RegisterUserComponent implements OnInit {
   }
 
   loadUserInfo(userId: number) {
-    this.gService.get(`/getById`, `?id=${userId}`).subscribe({
+    this.gService.get(`/getByIdP`, `?id=${userId}`).subscribe({
       next: (call) => {
+        debugger
         this.UserInfo = call.data;
         this.formulario.setValue({
           id: this.UserInfo.id,
+
           Password: this.UserInfo.password,
+          confirmPassword: this.UserInfo.password, // Inicializar con la misma contraseña para validación
           Email: this.UserInfo.email,
           ExpirationDate: this.formatDate(this.UserInfo.expirationDate),
           Rol: this.UserInfo.rol,
@@ -64,15 +68,29 @@ export class RegisterUserComponent implements OnInit {
     this.formulario = this.fb.group({
       id: [null],
       Email: ['', [Validators.required, Validators.email]],
-      Password: ['',  [
+      Password: ['', [
         Validators.required,
         Validators.minLength(8),
         Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$') // Expresión regular para la contraseña
       ]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
       ExpirationDate: [''],
       Rol: [''],
       NombreUsuario: ['', Validators.required]
-    });
+    }, { validator: this.passwordMatchValidator }); // Aplicar validador personalizado
+  }
+
+  // Función para validar que las contraseñas coinciden
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('Password');
+    const confirmPassword = form.get('confirmPassword');
+    return password && confirmPassword && password.value !== confirmPassword.value
+      ? confirmPassword.setErrors({ passwordMismatch: true })
+      : confirmPassword?.setErrors(null);
+  }
+
+  onPasswordFocus() {
+    this.showConfirmPassword = true; // Mostrar campo de confirmar contraseña
   }
 
   submit() {
@@ -127,9 +145,8 @@ export class RegisterUserComponent implements OnInit {
   }
 
   discard() {
-    this.router.navigate(['/users']);
+    this.router.navigate(['/events-users']);
   }
-
 
   formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -139,7 +156,6 @@ export class RegisterUserComponent implements OnInit {
     return `${year}-${month}-${day}`;
   }
 
-  
   errorHandling(control: string, error: string) {
     const formControl = this.formulario.get(control);
     return formControl?.touched && formControl?.hasError(error);

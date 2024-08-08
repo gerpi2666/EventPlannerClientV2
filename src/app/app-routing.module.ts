@@ -34,12 +34,12 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'users/selfcreate', component: RegisterUserComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   {
     path: '',
     component: FullComponent,
     children: [
       { path: 'Dash', component: DashboardComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador', 'Administrador', 'Cliente'] } },
-      { path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador', 'Administrador', 'Cliente'] } },
       { path: 'alerts', component: AlertsComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
       { path: 'forms', component: FormsComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },
       { path: 'table', component: ProductComponent, canActivate: [AuthGuard], data: { roles: ['SuperAdministrador'] } },

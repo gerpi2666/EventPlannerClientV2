@@ -38,9 +38,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.logout();
+  }
 
   onReset() {
+    
     this.formulario.reset();
   }
 
@@ -109,4 +112,9 @@ export class LoginComponent implements OnInit {
   public errorHandling = (control: string, error: string) => {
     return this.formulario.controls[control].hasError(error);
   };
+
+  logout() {
+    // Elimina la información del usuario actual de localStorage o cualquier otro almacenamiento
+    localStorage.removeItem('currentUser');
+  }
 }
