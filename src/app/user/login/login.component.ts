@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
               TipoMessage.success
             );
             if(call.data.rol==2){
-              this.router.navigate(['/events-byUser']);
+              this.router.navigate(['/events-users']);
 
             }else{
               this.router.navigate(['/Dash']);

@@ -27,11 +27,13 @@ import { EventByUserComponent } from './event/event-by-user/event-by-user.compon
 import { EventDetailComponent } from './event/event-detail/event-detail.component';
 import {EventListUserComponent  } from './event/event-list-user/event-list-user.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
+import { RegisterUserComponent } from './user/register-user/register-user.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'users/selfcreate', component: RegisterUserComponent },
   {
     path: '',
     component: FullComponent,

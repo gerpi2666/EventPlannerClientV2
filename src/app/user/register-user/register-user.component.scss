@@ -1,0 +1,74 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    button {
+        width: 300px;
+        margin: 0 10px 10px 10px;
+        color: white;
+    }
+
+    button[color="accent"] {
+        background-color: #0b488c;
+    }
+
+    button[color="warn"] {
+        background-color: red;
+    }
+
+    body {
+        margin: 0;
+        font-family: Roboto, "Helvetica Neue", sans-serif;
+      }
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+mat-card {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px;
+}
+
+mat-card-header, mat-card-content, mat-card-actions {
+    padding: 16px;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -8px;
+}
+
+.col-12, .col-4 {
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.col-12 {
+    flex: 0 0 100%;
+}
+
+.col-4 {
+    flex: 0 0 33.33%;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}

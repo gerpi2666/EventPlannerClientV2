@@ -91,6 +91,10 @@ export class FullComponent implements OnInit {
     this.router.navigate(['/reset-password']);
   }
 
+  editprofile() {
+    this.router.navigate(['/users/selfcreate']);
+  }
+
   logout() {
     // Elimina la información del usuario actual de localStorage o cualquier otro almacenamiento
     localStorage.removeItem('currentUser');

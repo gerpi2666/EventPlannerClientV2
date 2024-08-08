@@ -28,21 +28,19 @@ export class EventListUserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') );
+    this.CurrentUser= currentUser.id;
     this.ListEvents();
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.CurrentUser= currentUser;
-    console.log(currentUser);
-
+  
   
   }
 
   ListEvents() {
-    this.eventService.get('/ListCustomer', this.CurrentUser.id).subscribe({
+    this.eventService.getEVENTS('/ListCustomer',  this.CurrentUser).subscribe({
       next: (call) => {
         this.DatoAllEvent = call.data;
         this.DatoAllEvent.forEach((element) => {
           if (element.activo) {
-            console.log('DATOS LIST callback', this.DatoAllEvent);
             this.dataSource = element.eventos;
           }
         });

@@ -80,7 +80,9 @@ export class CreateUserComponent implements OnInit {
 
   submit(){
     if (this.IsCreate) {
-
+      if (this.formulario.invalid) {
+        return;
+      }
       this.gService
         .create('/create', this.formulario.value)       
        .subscribe({
