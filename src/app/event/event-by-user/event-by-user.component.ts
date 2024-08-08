@@ -51,9 +51,7 @@ export class EventByUserComponent {
   
             // Opcional: Imprimir datos para depuración
             console.log('Datos de eventos activos:', this.events);
-          } else {
-            this.noti.mensaje('Advertencia', 'No se encontraron eventos.', TipoMessage.warning);
-          }
+          } 
         },
         error: () => {
           this.noti.mensaje('Error', 'Error de conexión', TipoMessage.error);

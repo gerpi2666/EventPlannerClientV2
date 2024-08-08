@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { GenericService } from 'src/app/services/generic.service';
 import {
@@ -20,12 +20,12 @@ export class LoginComponent implements OnInit {
   makeSubmit: boolean = false;
   infoUsuario: any;
   currentUser: any;
+  isCheck:any
 
   constructor(
     public fb: FormBuilder,
     private gService: GenericService,
     private router: Router,
-    private route: ActivatedRoute,
     private noti: NotificacionService
   ) {
     this.reactiveForm();
@@ -58,7 +58,12 @@ export class LoginComponent implements OnInit {
       .create('/login', this.formulario.value)
       .subscribe({
         next: (call) => {
+          this.isCheck=call;
+          console.log('ischeck', this.isCheck)
+         
+
           if (call.statusCode == 400 || call.statusCode == 401) {
+
             this.noti.mensaje(
               'Error',
               'Credenciales incorrectas',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { GenericService } from 'src/app/services/generic.service';
 import { NotificacionService, TipoMessage } from 'src/app/services/notification.service';
 
@@ -18,12 +18,11 @@ export class RegisterUserComponent implements OnInit {
   IsCreate: boolean = true;
   redirectUrl: string = '/login'; // Agregar esta propiedad
   showConfirmPassword: boolean = true; // Para controlar la visibilidad del campo confirmPassword
-
+  isCheck :any
   constructor(
     private fb: FormBuilder,
     private gService: GenericService,
     private router: Router,
-    private activeRouter: ActivatedRoute,
     private noti: NotificacionService
   ) {
     this.reactiveForm();
@@ -76,8 +75,8 @@ export class RegisterUserComponent implements OnInit {
         Validators.pattern('^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).*$') // Expresión regular para la contraseña
       ]],
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
-      ExpirationDate: [''],
-      Rol: [''],
+      //ExpirationDate: [''],
+      //Rol: [''],
       NombreUsuario: ['', Validators.required]
     }, { validator: this.passwordMatchValidator }); // Aplicar validador personalizado
   }
@@ -96,6 +95,7 @@ export class RegisterUserComponent implements OnInit {
   }
 
   submit() {
+    //console.log('Valor del formulario',this.formulario.value)
     if (this.formulario.invalid) {
       return;
     }
@@ -111,6 +111,7 @@ export class RegisterUserComponent implements OnInit {
       this.gService.create('/create', userData).subscribe({
         next: (call) => {
           if (call.statusCode == 200) {
+            this.isCheck=200;
             this.noti.mensaje('Exito', 'Usuario creado correctamente', TipoMessage.success);
             
             
