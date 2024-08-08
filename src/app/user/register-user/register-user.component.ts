@@ -17,7 +17,7 @@ export class RegisterUserComponent implements OnInit {
   Id: any;
   IsCreate: boolean = true;
   redirectUrl: string = '/login'; // Agregar esta propiedad
-  showConfirmPassword: boolean = false; // Para controlar la visibilidad del campo confirmPassword
+  showConfirmPassword: boolean = true; // Para controlar la visibilidad del campo confirmPassword
 
   constructor(
     private fb: FormBuilder,
@@ -40,12 +40,14 @@ export class RegisterUserComponent implements OnInit {
         this.loadUserInfo(this.Id);
       }
     }
+
   }
 
   loadUserInfo(userId: number) {
     this.gService.get(`/getByIdP`, `?id=${userId}`).subscribe({
       next: (call) => {
-        debugger
+        this.showConfirmPassword= false;
+        this.onPasswordFocus;
         this.UserInfo = call.data;
         this.formulario.setValue({
           id: this.UserInfo.id,
@@ -110,7 +112,9 @@ export class RegisterUserComponent implements OnInit {
         next: (call) => {
           if (call.statusCode == 200) {
             this.noti.mensaje('Exito', 'Usuario creado correctamente', TipoMessage.success);
-            this.router.navigate(['/users']);
+            
+            
+            this.router.navigate(['/login']);
           } else {
             this.handleError(call.statusCode);
           }
